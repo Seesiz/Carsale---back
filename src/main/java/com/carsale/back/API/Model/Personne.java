@@ -1,0 +1,173 @@
+package com.carsale.back.API.Model;
+
+import jakarta.persistence.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Entity
+public class Personne {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idPersonne")
+    private int idPersonne;
+
+    private String nom;
+
+    private String prenom;
+    /*
+    * ito atao H na F
+    * */
+    private char sexe;
+
+    @Column(name = "dateNaissance" , columnDefinition = "date")
+    private Date dateNaissance;
+
+    private String contact;
+
+    private String mail;
+
+    @Column(name = "motDePass")
+    private String motDePass;
+
+    /*
+    * Atao majuscule daholo
+    * */
+    private String cin;
+    @OneToOne
+    @JoinColumn(name = "idCompte", referencedColumnName = "idCompte")
+    private Compte compte;
+
+    public int getIdPersonne() {
+        return idPersonne;
+    }
+
+    public void setIdPersonne(int idPersonne) {
+        this.idPersonne = idPersonne;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public char getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(char sexe) {
+        sexe = Character.toUpperCase(sexe);
+        this.sexe = sexe;
+    }
+
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public void setDateNaissance(String dateNaissance) throws  java.text.ParseException{
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateN = dateFormat.parse(dateNaissance);
+        this.dateNaissance = dateN;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getMotDePass() {
+        return motDePass;
+    }
+
+    public void setMotDePass(String motDePass) {
+        this.motDePass = motDePass;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public Personne(){}
+
+    public Personne(int idPersonne, String nom, String prenom, char sexe, Date dateNaissance,
+                    String contact, String mail, String motDePass, String cin ,Compte compte) {
+        setIdPersonne(idPersonne);
+        setNom(nom);
+        setPrenom(prenom);
+        setSexe(sexe);
+        setDateNaissance(dateNaissance);
+        setContact(contact);
+        setMail(mail);
+        setMotDePass(motDePass);
+        setCin(cin);
+        setCompte(compte);
+    }
+
+    public Personne(String nom, String prenom, char sexe, Date dateNaissance,
+                    String contact, String mail, String motDePass, String cin ,Compte compte) {
+        setNom(nom);
+        setPrenom(prenom);
+        setSexe(Character.toUpperCase(sexe));
+        setDateNaissance(dateNaissance);
+        setContact(contact);
+        setMail(mail);
+        setMotDePass(motDePass);
+        setCin(cin);
+        setCompte(compte);
+    }
+
+    public Personne(String nom, String prenom, char sexe, String dateNaissance, String contact,
+                    String mail, String motDePass,String cin ,Compte compte) throws java.text.ParseException{
+        setNom(nom);
+        setPrenom(prenom);
+        setSexe(Character.toUpperCase(sexe));
+        setDateNaissance(dateNaissance);
+        setContact(contact);
+        setMail(mail);
+        setMotDePass(motDePass);
+        setCin(cin);
+        setCompte(compte);
+    }
+
+    public Personne(int idPersonne){
+        setIdPersonne(idPersonne);
+    }
+}
