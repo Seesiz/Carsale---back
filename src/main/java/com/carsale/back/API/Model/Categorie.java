@@ -50,9 +50,7 @@ public class Categorie {
         setDesignation(designation);
         setEtatCategorie(etatCategori);
     }
-    public Categorie(String designation, int etatCategori) {
-        setIdCategorie(idCategorie);
+    public Categorie(String designation) {
         setDesignation(designation);
-        setEtatCategorie(etatCategori);
     }
 }

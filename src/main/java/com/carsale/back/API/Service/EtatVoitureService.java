@@ -15,6 +15,10 @@ public class EtatVoitureService {
         return etat_voiture_rep.save(e);
     }
 
+    public List<EtatVoiture> getListEtatVoitures(){
+        return etat_voiture_rep.findAll();
+    }
+
     public EtatVoiture modifierEtatVoiture(int idEtat,EtatVoiture e){
         EtatVoiture etatVoiture = etat_voiture_rep.findById(idEtat).map(
                 etat -> {
@@ -25,7 +29,5 @@ public class EtatVoitureService {
         return etat_voiture_rep.save(etatVoiture);
     }
 
-    public List<EtatVoiture> getListEtatVoitures(){
-        return etat_voiture_rep.findAll();
-    }
+
 }

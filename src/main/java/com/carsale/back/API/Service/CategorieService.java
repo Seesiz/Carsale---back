@@ -11,15 +11,16 @@ public class CategorieService {
     @Autowired
     private com.carsale.back.API.Repository.CategorieRepository categorie_rep;
 
-    Categorie ajoutCategorie(Categorie c){
+    public Categorie ajoutCategorie(Categorie c){
+        c.setEtatCategorie(1);
         return categorie_rep.save(c);
     }
 
-    List<Categorie> getListCategories(){
+    public List<Categorie> getListCategories(){
         return  categorie_rep.findCategoriesByEtatCategorie(1);
     }
 
-    Categorie modifierCategorie(int idCatogorie,Categorie c){
+    public Categorie modifierCategorie(int idCatogorie,Categorie c){
         Categorie categorie = categorie_rep.findById(idCatogorie).map(
                 cat->{
                     cat.setEtatCategorie(c.getEtatCategorie());
@@ -31,7 +32,7 @@ public class CategorieService {
         return categorie_rep.save(categorie);
     }
 
-    Categorie supprimerCategorie(int idCategori){
+    public Categorie supprimerCategorie(int idCategori){
         Categorie c= categorie_rep.findById(idCategori).map(
                 cat -> {
                     cat.setEtatCategorie(0);

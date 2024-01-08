@@ -11,15 +11,15 @@ public class CompteService {
     @Autowired
     private com.carsale.back.API.Repository.CompteRepository compte_rep;
 
-    Compte ajoutCompte(Compte c){
+    public Compte ajoutCompte(Compte c){
         return compte_rep.save(c);
     }
 
-    List<Compte> getListComptes(){
+    public List<Compte> getListComptes(){
         return  compte_rep.findAll();
     }
 
-    Compte modifierCompte(int idCompte, Compte c){
+    public Compte modifierCompte(int idCompte, Compte c){
         Compte compte = compte_rep.findById(idCompte).map(
                 compte1 -> {
                     compte1.setDesignation(c.getDesignation());
