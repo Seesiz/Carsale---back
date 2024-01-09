@@ -3,10 +3,11 @@ package com.carsale.back.API.Service;
 import com.carsale.back.API.Model.Categorie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class CategorieService {
     @Autowired
     private com.carsale.back.API.Repository.CategorieRepository categorie_rep;

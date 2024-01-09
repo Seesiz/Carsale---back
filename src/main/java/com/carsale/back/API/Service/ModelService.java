@@ -5,11 +5,11 @@ import com.carsale.back.API.Model.Model;
 import com.carsale.back.API.Repository.MarqueRepository;
 import com.carsale.back.API.Repository.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class ModelService {
     @Autowired
     private ModelRepository model_rep;
