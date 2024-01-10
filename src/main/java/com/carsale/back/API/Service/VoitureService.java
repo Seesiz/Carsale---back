@@ -25,6 +25,9 @@ public class VoitureService {
     @Autowired
     private PersonneRepository personne_rep;
 
+    @Autowired
+    private EtatVoitureRepository etatVoiture_rep;
+
     public List<Voiture> getAllVoiture(){
         return voiture_rep.findAll();
     }
@@ -34,10 +37,12 @@ public class VoitureService {
         Categorie categorie = categorie_rep.findById((v.getCategorie().getIdCategorie())).get();
         Model model = model_rep.findById(v.getModel().getIdModel()).get();
         Marque marque = marque_rep.findById(model.getMarque().getIdMarque()).get();
+        EtatVoiture etat = etatVoiture_rep.findById(v.getEtat().getIdEtat()).get();
         model.setMarque(marque);
         v.setPersonne(personne);
         v.setCategorie(categorie);
         v.setModel(model);
+        v.setEtat(etat);
         return voiture_rep.save(v);
     }
 
@@ -56,6 +61,4 @@ public class VoitureService {
         ).orElseThrow(()-> new RuntimeException("impossible de touver la voiture avec l'ID:"+idVoiture));
         return  voiture_rep.save(voiture);
     }
-
-
 }

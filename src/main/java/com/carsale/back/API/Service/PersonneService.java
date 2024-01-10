@@ -20,9 +20,10 @@ public class PersonneService {
     @Autowired
     private CompteRepository compte_rep;
 
-    public Personne ajoutPersonne(Personne p){
+    public Personne ajoutPersonne(Personne p) throws Exception{
         Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
         p.setCompte(c);
+        p.setMotDePass(p.getMotDePass());
         return personne_rep.save(p);
     }
 
@@ -49,7 +50,14 @@ public class PersonneService {
         return personne_rep.save(pers);
     }
 
-    public Personne login(String mail,String motDePass){
-        return  personne_rep.findByMailAndMotDePass(mail,motDePass);
+    public Personne login(String mail,String motDePass) throws Exception{
+        String motDePassCripte = new Personne().criptage(motDePass);
+        Personne p =personne_rep.findByMail(mail);
+        if(p==null){
+            throw new  Exception("Personne introuvable");
+        }else if(p.getMotDePass() != motDePassCripte){
+            throw new Exception("Mot de passe incorecte");
+        }
+        return  p;
     }
 }

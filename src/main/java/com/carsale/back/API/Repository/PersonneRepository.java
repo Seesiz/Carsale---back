@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne,Integer> {
-    Personne findByMailAndMotDePass(String mail,String motDePass);
+    Personne findByMail(String mail);
 }

@@ -3,8 +3,12 @@ package com.carsale.back.API.Controller;
 import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -18,11 +22,14 @@ public class PersonneController {
         return  personne_serv.getListPersonne();
     }
 
-
-
     @PostMapping()
-    public Personne ajoutPersonne(@RequestBody Personne p){
-        return personne_serv.ajoutPersonne(p);
+    public ResponseEntity<Personne> ajoutPersonne(@RequestBody Personne p) {
+        try {
+            Personne addedPerson = personne_serv.ajoutPersonne(p);
+            return new ResponseEntity<>(addedPerson, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping
@@ -31,8 +38,26 @@ public class PersonneController {
     }
 
     @PostMapping("/login")
-    public Personne login(String mail,String motDePass){
-        return personne_serv.login(mail,motDePass);
+    public ResponseEntity<?> login(String mail,String motDePass){
+        try {
+            return new ResponseEntity<>(personne_serv.login(mail,motDePass), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("{ \"message\": " + e.getMessage() +"}", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/cryptage")
+    public String cryptage() {
+        String sel = "dac6595c04dda81";
+        try {
+            String val = new Personne().criptage("randy");
+
+            String val2 = new Personne().criptage("randy");
+
+            return val + " <br> " + val2;
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 
 }

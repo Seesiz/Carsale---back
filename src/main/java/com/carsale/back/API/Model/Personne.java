@@ -2,6 +2,7 @@ package com.carsale.back.API.Model;
 
 import jakarta.persistence.*;
 
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,7 +27,7 @@ public class Personne {
     private String contact;
     /*
     * Tsimaintsy mail tena misy
-    * Tsimaitsy misy @
+    * Tsimaitsy misy amin'ny tena izy
     * */
     @Column(unique = true)
     private String mail;
@@ -174,5 +175,19 @@ public class Personne {
 
     public Personne(int idPersonne){
         setIdPersonne(idPersonne);
+    }
+
+    public String criptage(String password) throws Exception{
+        String sel = "dac6595c04dda81";
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        password = sel + password;
+        md.update(password.getBytes());
+        byte byteData[] = md.digest();
+        //convertir le tableau de bits en une format hexadécimal
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+            sb.append(Integer.toString( (byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 }
