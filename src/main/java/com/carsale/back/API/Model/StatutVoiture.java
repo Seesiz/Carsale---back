@@ -2,6 +2,7 @@ package com.carsale.back.API.Model;
 
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -29,6 +30,12 @@ public class StatutVoiture {
 
     public void setDateStatut(Date dateStatut) {
         this.dateStatut = dateStatut;
+    }
+
+    public void setDateStatut(String dateStatut) throws java.text.ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateS = dateFormat.parse(dateStatut);
+        this.dateStatut = dateS;
     }
 
     public void setIdStatut(int idStatut) {
