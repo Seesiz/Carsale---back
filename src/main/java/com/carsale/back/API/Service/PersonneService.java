@@ -41,7 +41,11 @@ public class PersonneService {
                     personne.setMail(p.getMail());
                     personne.setCin(p.getCin());
                     personne.setContact(p.getContact());
-                    personne.setMotDePass(p.getMotDePass());
+                    try {
+                        personne.setMotDePass(p.criptage(p.getMotDePass()));
+                    } catch (Exception e){
+                        throw new RuntimeException(e);
+                    }
                     personne.setCompte(c);
                     return personne;
                 }

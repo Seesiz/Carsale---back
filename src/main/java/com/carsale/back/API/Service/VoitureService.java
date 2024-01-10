@@ -28,6 +28,9 @@ public class VoitureService {
     @Autowired
     private EtatVoitureRepository etatVoiture_rep;
 
+    @Autowired
+    private ModelRepository getModel_rep;
+
     public List<Voiture> getAllVoiture(){
         return voiture_rep.findAll();
     }
@@ -60,5 +63,15 @@ public class VoitureService {
                 }
         ).orElseThrow(()-> new RuntimeException("impossible de touver la voiture avec l'ID:"+idVoiture));
         return  voiture_rep.save(voiture);
+    }
+
+    //-----------Filtre
+    public List<Voiture> getVoitureByModel(int idModel){
+        Model model = model_rep.findById(idModel).orElseThrow(()-> new RuntimeException("Impossible de trouver le model associer ID:"+idModel));
+        return voiture_rep.findByModel(model);
+    }
+    public List<Voiture> getVoitureByCategorie(int idCategorie){
+        Categorie categorie = categorie_rep.findById(idCategorie).orElseThrow(()-> new RuntimeException("Impossible de trouver la categorie associer ID"+idCategorie));
+        return voiture_rep.findByCategorie(categorie);
     }
 }
