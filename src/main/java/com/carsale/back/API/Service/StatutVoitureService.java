@@ -24,10 +24,13 @@ public class StatutVoitureService {
     public StatutVoiture modifierStatutVoiture(int idStatut, StatutVoiture s){
         StatutVoiture stat = statutVoiture_rep.findById(idStatut).map(
                 status -> {
+                    status.setStatut(s.getStatut());
+                    status.setVoiture(s.getVoiture());
+                    status.setDateStatut(s.getDateStatut());
                     return status;
                 }
         ).orElseThrow(() -> new RuntimeException("impossible de trouver le statut avec l'ID : "+idStatut));
 
-        return null;
+        return statutVoiture_rep.save(stat);
     }
 }

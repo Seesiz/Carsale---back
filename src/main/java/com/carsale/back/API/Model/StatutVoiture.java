@@ -9,7 +9,7 @@ public class StatutVoiture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idStatut")
-    private int idPersonne;
+    private int idStatut;
 
     @ManyToOne
     @JoinColumn(name = "idVoiture", referencedColumnName = "idVoiture")
@@ -31,8 +31,8 @@ public class StatutVoiture {
         this.dateStatut = dateStatut;
     }
 
-    public void setIdPersonne(int idPersonne) {
-        this.idPersonne = idPersonne;
+    public void setIdStatut(int idStatut) {
+        this.idStatut = idStatut;
     }
 
     public void setStatut(int statut) {
@@ -47,8 +47,8 @@ public class StatutVoiture {
         return dateStatut;
     }
 
-    public int getIdPersonne() {
-        return idPersonne;
+    public int getIdStatut() {
+        return idStatut;
     }
 
     public int getStatut() {
