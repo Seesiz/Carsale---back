@@ -44,7 +44,6 @@ Voiture:
 	-Etat: /10
 	-prix
 
-
 DetailVoiture:
 	-idVoiture
 	-date:
@@ -59,6 +58,10 @@ Statut Voiture:
 			11 vendu sady livré
 			......
 			(Annonce)
+
+--->Publication anonce : AjoutVoiture+ Ajout statut (En atente de validation) + Ajout caractériqtique Voiture(Mongo: sary + option + descipription + ,.......)
+--->Validation anonce: Ajout statut voiture
+--->Affiche ny annonce: select (Voiture,statut anonce valide et non vendu) + select caractériqtique Voiture(Mongo)
 
 Transaction:
 	-idTransaction
@@ -93,10 +96,7 @@ Front office :
 	Liste des annonces récentes (Date -1mois)
 	List des annonces Favoris(mila login)
 
-
 Caractéristique voiture:
-
-
 Voiture:
 Marque,Model,
 
@@ -116,5 +116,9 @@ voiture:
 ->Front office
 	Annonce + vente
 
+------------------------------Partie Prisca---------------------------------------
+->affichage back office
+    .genralisation affichage CRUD
+    .partie back: CRUD rehetra efa vita
 ------------------------------Message mongoDB
 -Notification FIREBASE

@@ -31,38 +31,41 @@ public class VoitureController {
 
     //-----------Filtre
     @GetMapping("/model/{idModel}")
-    public  List<Voiture> getByModel(@PathVariable int idModel){
+    public  HashMap<String, Object> getByModel(@PathVariable int idModel){
         HashMap<String,Object> reponse = new HashMap<>();
         List<Voiture> list = voiture_serv.getVoitureByModel(idModel);
-        /*if (list.size()>0){
-            return (HashMap<String, Object>) reponse.put("data",list);
+        if (list.size()>0){
+            reponse.put("data",list);
+            return reponse;
         }else {
-            return (HashMap<String, Object>) reponse.put("message","aucune voiture associer avec cette model");
-        }*/
-        return list;
+            reponse.put("message","aucune voiture associer avec cette model");
+            return reponse;
+        }
     }
 
     @GetMapping("/categorie/{idCategorie}")
-    public  List<Voiture> getCategorie(@PathVariable int idCategorie){
+    public  HashMap<String,Object> getCategorie(@PathVariable int idCategorie){
         HashMap<String,Object> reponse = new HashMap<>();
         List<Voiture> list = voiture_serv.getVoitureByCategorie(idCategorie);
-        /*if (list.size()>0){
-            return (HashMap<String, Object>) reponse.put("data",list);
+        if (list.size()>0){
+            reponse.put("data",list);
+            return reponse;
         }else {
-            return (HashMap<String, Object>) reponse.put("message","aucune voiture associer avec cette model");
-        }*/
-        return list;
+            reponse.put("message","aucune voiture associer avec cette model");
+            return reponse;
+        }
     }
 
     @GetMapping("/marque/{idMarque}")
-    public  List<Voiture> getMarque(@PathVariable int idMarque){
+    public  HashMap<String, Object> getMarque(@PathVariable int idMarque){
         HashMap<String,Object> reponse = new HashMap<>();
         List<Voiture> list = voiture_serv.getVoitureByMarque(idMarque);
-        /*if (list.size()>0){
-            return (HashMap<String, Object>) reponse.put("data",list);
+        if (list.size()>0){
+            reponse.put("data",list);
+            return reponse;
         }else {
-            return (HashMap<String, Object>) reponse.put("message","aucune voiture associer avec cette model");
-        }*/
-        return list;
+            reponse.put("message","aucune voiture associer avec cette model");
+            return reponse;
+        }
     }
 }
