@@ -1,6 +1,8 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Categorie;
+import com.carsale.back.API.Model.Model;
+import com.carsale.back.API.Repository.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,9 @@ import java.util.List;
 public class CategorieService {
     @Autowired
     private com.carsale.back.API.Repository.CategorieRepository categorie_rep;
+
+    @Autowired
+    private ModelRepository model_rep;
 
     public Categorie ajoutCategorie(Categorie c){
         c.setEtatCategorie(1);

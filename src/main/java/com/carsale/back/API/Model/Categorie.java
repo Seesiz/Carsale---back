@@ -19,6 +19,11 @@ public class Categorie {
     @ColumnDefault("1")
     private int etatCategorie;
 
+    @ManyToOne
+    @JoinColumn()
+    private Categorie categorie;
+
+
     public void setDesignation(String designation) {
         this.designation = designation;
     }

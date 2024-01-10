@@ -21,6 +21,8 @@ public class PersonneService {
     private CompteRepository compte_rep;
 
     public Personne ajoutPersonne(Personne p){
+        Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
+        p.setCompte(c);
         return personne_rep.save(p);
     }
 
@@ -44,7 +46,7 @@ public class PersonneService {
                     return personne;
                 }
         ).orElseThrow(() -> new RuntimeException("impossible de trouver la personne avec l'ID : "+idPersonne));
-        return null;
+        return personne_rep.save(pers);
     }
 
     public Personne login(String mail,String motDePass){

@@ -2,6 +2,8 @@ package com.carsale.back.API.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Model {
     @Id
@@ -13,6 +15,9 @@ public class Model {
     @JoinColumn(name = "idMarque", referencedColumnName = "idMarque")
     private Marque marque;
 
+    @ManyToOne
+    @JoinColumn(name = "idCategorie", referencedColumnName = "idCategorie")
+    private Categorie categorie;
     private String designation;
 
     public void setDesignation(String designation) {
@@ -35,6 +40,14 @@ public class Model {
         return idModel;
     }
 
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
     public Marque getMarque() {
         return marque;
     }
@@ -43,14 +56,16 @@ public class Model {
     public Model(int idModel){
         setIdModel(idModel);
     }
-    public Model(int idModel,Marque marque,String designation){
+    public Model(int idModel,Marque marque,String designation,Categorie categorie){
         setIdModel(idModel);
         setMarque(marque);
         setDesignation(designation);
+        setCategorie(categorie);
     }
 
-    public Model(Marque marque,String designation){
+    public Model(Marque marque,String designation,Categorie categorie){
         setMarque(marque);
         setDesignation(designation);
+        setCategorie(categorie);
     }
 }

@@ -24,7 +24,7 @@ public class CategorieController {
         return categorie_serv.ajoutCategorie(c);
     }
 
-    @PutMapping("/{idCategorie}")
+    @PutMapping()
     public Categorie modifierCategorie(@RequestBody Categorie c){
         return categorie_serv.modifierCategorie(c.getIdCategorie(),c);
     }

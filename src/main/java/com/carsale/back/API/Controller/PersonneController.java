@@ -22,7 +22,7 @@ public class PersonneController {
 
     @PostMapping()
     public Personne ajoutPersonne(@RequestBody Personne p){
-        return personne_serv.modifierPersonne(p.getIdPersonne(),p);
+        return personne_serv.ajoutPersonne(p);
     }
 
     @PutMapping
