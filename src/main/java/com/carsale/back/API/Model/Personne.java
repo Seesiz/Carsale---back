@@ -32,7 +32,7 @@ public class Personne {
     @Column(unique = true)
     private String mail;
 
-    @Column(name = "motDePass")
+    @Column(name = "motDePass",columnDefinition = "Text")
     private String motDePass;
 
     /*

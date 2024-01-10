@@ -43,7 +43,7 @@ Voiture:
 	-plaque d'immatriculation
 	-Etat: /10
 	-prix
-	
+
 
 DetailVoiture:
 	-idVoiture

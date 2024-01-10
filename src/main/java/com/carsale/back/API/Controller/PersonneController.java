@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,11 +37,13 @@ public class PersonneController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(String mail,String motDePass){
+    public HashMap<String, Object> login(String mail, String motDePass){
         try {
-            return new ResponseEntity<>(personne_serv.login(mail,motDePass), HttpStatus.OK);
+            return personne_serv.login(mail,motDePass);
         }catch (Exception e){
-            return new ResponseEntity<>("{ \"message\": " + e.getMessage() +"}", HttpStatus.BAD_REQUEST);
+            HashMap<String,Object> reponse = new HashMap<>();
+            reponse.put("message",e.getMessage());
+            return  reponse;
         }
     }
 

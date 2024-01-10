@@ -1,16 +1,15 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Compte;
-import com.carsale.back.API.Model.Marque;
-import com.carsale.back.API.Model.Model;
 import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Repository.CompteRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PersonneService {
@@ -50,14 +49,19 @@ public class PersonneService {
         return personne_rep.save(pers);
     }
 
-    public Personne login(String mail,String motDePass) throws Exception{
+    public HashMap<String,Object> login(String mail, String motDePass) throws Exception{
+        HashMap<String, Object> reponse = new HashMap<>();
         String motDePassCripte = new Personne().criptage(motDePass);
         Personne p =personne_rep.findByMail(mail);
         if(p==null){
-            throw new  Exception("Personne introuvable");
-        }else if(p.getMotDePass() != motDePassCripte){
-            throw new Exception("Mot de passe incorecte");
+            reponse.put("message","Personne introuvabe");
+            return reponse;
         }
-        return  p;
+        if(!p.getMotDePass().equals(motDePassCripte)){
+            reponse.put("message","Mot de passe incorreste");
+            return reponse;
+        }
+        reponse.put("reponse",p);
+        return reponse;
     }
 }
