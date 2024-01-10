@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -73,5 +74,15 @@ public class VoitureService {
     public List<Voiture> getVoitureByCategorie(int idCategorie){
         Categorie categorie = categorie_rep.findById(idCategorie).orElseThrow(()-> new RuntimeException("Impossible de trouver la categorie associer ID"+idCategorie));
         return voiture_rep.findByCategorie(categorie);
+    }
+
+    public List<Voiture> getVoitureByMarque(int idMarque){
+        List<Voiture> reponse =new ArrayList<>();
+        Marque m = marque_rep.findById(idMarque).orElseThrow(()-> new RuntimeException("Marque introuvable ID:"+idMarque));
+        List<Model> model = model_rep.findByMarque(m);
+        for (int i = 0; i < model.size(); i++) {
+            reponse.addAll(getVoitureByModel(model.get(i).getIdModel()));
+        }
+        return reponse;
     }
 }

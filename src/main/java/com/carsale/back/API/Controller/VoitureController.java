@@ -53,4 +53,16 @@ public class VoitureController {
         }*/
         return list;
     }
+
+    @GetMapping("/marque/{idMarque}")
+    public  List<Voiture> getMarque(@PathVariable int idMarque){
+        HashMap<String,Object> reponse = new HashMap<>();
+        List<Voiture> list = voiture_serv.getVoitureByMarque(idMarque);
+        /*if (list.size()>0){
+            return (HashMap<String, Object>) reponse.put("data",list);
+        }else {
+            return (HashMap<String, Object>) reponse.put("message","aucune voiture associer avec cette model");
+        }*/
+        return list;
+    }
 }
