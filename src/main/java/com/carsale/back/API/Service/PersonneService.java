@@ -44,7 +44,10 @@ public class PersonneService {
                     return personne;
                 }
         ).orElseThrow(() -> new RuntimeException("impossible de trouver la personne avec l'ID : "+idPersonne));
-
         return null;
+    }
+
+    public Personne login(String mail,String motDePass){
+        return  personne_rep.findByMailAndMotDePass(mail,motDePass);
     }
 }

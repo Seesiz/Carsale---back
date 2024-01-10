@@ -18,13 +18,21 @@ public class PersonneController {
         return  personne_serv.getListPersonne();
     }
 
+
+
     @PostMapping()
-    public Personne ajoutPersonne(Personne p){
+    public Personne ajoutPersonne(@RequestBody Personne p){
         return personne_serv.modifierPersonne(p.getIdPersonne(),p);
     }
 
     @PutMapping
-    public Personne modifierPersonne(Personne p){
+    public Personne modifierPersonne(@RequestBody Personne p){
         return personne_serv.modifierPersonne(p.getIdPersonne(),p);
     }
+
+    @PostMapping("/login")
+    public Personne login(String mail,String motDePass){
+        return personne_serv.login(mail,motDePass);
+    }
+
 }

@@ -24,7 +24,11 @@ public class Personne {
     private Date dateNaissance;
 
     private String contact;
-
+    /*
+    * Tsimaintsy mail tena misy
+    * Tsimaitsy misy @
+    * */
+    @Column(unique = true)
     private String mail;
 
     @Column(name = "motDePass")
@@ -33,6 +37,7 @@ public class Personne {
     /*
     * Atao majuscule daholo
     * */
+    @Column(unique = true)
     private String cin;
     @OneToOne
     @JoinColumn(name = "idCompte", referencedColumnName = "idCompte")
