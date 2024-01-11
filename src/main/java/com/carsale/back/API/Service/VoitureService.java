@@ -32,8 +32,25 @@ public class VoitureService {
     @Autowired
     private ModelRepository getModel_rep;
 
+    @Autowired
+    private StatutVoitureRepository statutVoiture_rep;
+
+    @Autowired
+    private StatutVoitureService statutVoiture_serv;
+
+    /*
+    * Return list voiture en vente
+    * */
     public List<Voiture> getAllVoiture(){
-        return voiture_rep.findAll();
+        List<Voiture> voitureEnVente = new ArrayList<>();
+        List<Voiture> allVoiture = voiture_rep.findAll();
+        for (int i = 0; i < allVoiture.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(allVoiture.get(i).getIdVoiture());
+            if (statut.getIdStatut() == 1){
+                voitureEnVente.add(allVoiture.get(i));
+            }
+        }
+        return voitureEnVente;
     }
 
     public Voiture ajoutVoiture(Voiture v){
@@ -66,23 +83,47 @@ public class VoitureService {
         return  voiture_rep.save(voiture);
     }
 
-    //-----------Filtre
+    //-----------Filtre izay anaty vente iany
     public List<Voiture> getVoitureByModel(int idModel){
         Model model = model_rep.findById(idModel).orElseThrow(()-> new RuntimeException("Impossible de trouver le model associer ID:"+idModel));
-        return voiture_rep.findByModel(model);
+        List<Voiture> listVoiture = voiture_rep.findByModel(model);
+        List<Voiture> listEnVente = new ArrayList<>();
+        for (int i = 0; i < listVoiture.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
+            if (statut.getStatut()==2){
+                listEnVente.add(listVoiture.get(i));
+            }
+        }
+        return listEnVente;
     }
     public List<Voiture> getVoitureByCategorie(int idCategorie){
         Categorie categorie = categorie_rep.findById(idCategorie).orElseThrow(()-> new RuntimeException("Impossible de trouver la categorie associer ID"+idCategorie));
-        return voiture_rep.findByCategorie(categorie);
+        List<Voiture> listVoiture = voiture_rep.findByCategorie(categorie);
+        List<Voiture> listEnVente = new ArrayList<>();
+        for (int i = 0; i < listVoiture.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
+            if (statut.getStatut()==2){
+                listEnVente.add(listVoiture.get(i));
+            }
+        }
+        return listEnVente;
     }
 
     public List<Voiture> getVoitureByMarque(int idMarque){
         List<Voiture> reponse =new ArrayList<>();
+        List<Voiture> listEnVente = new ArrayList<>();
         Marque m = marque_rep.findById(idMarque).orElseThrow(()-> new RuntimeException("Marque introuvable ID:"+idMarque));
         List<Model> model = model_rep.findByMarque(m);
         for (int i = 0; i < model.size(); i++) {
             reponse.addAll(getVoitureByModel(model.get(i).getIdModel()));
         }
-        return reponse;
+
+        for (int i = 0; i < reponse.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(reponse.get(i).getIdVoiture());
+            if (statut.getStatut()==2){
+                listEnVente.add(reponse.get(i));
+            }
+        }
+        return listEnVente;
     }
 }

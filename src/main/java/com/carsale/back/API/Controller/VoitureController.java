@@ -29,7 +29,7 @@ public class VoitureController {
         return voiture_serv.modifierVoiture(voiture.getIdVoiture(),voiture);
     }
 
-    //-----------Filtre
+    //-----------Filtre voiture en vente rehetra iany
     @GetMapping("/model/{idModel}")
     public  HashMap<String, Object> getByModel(@PathVariable int idModel){
         HashMap<String,Object> reponse = new HashMap<>();

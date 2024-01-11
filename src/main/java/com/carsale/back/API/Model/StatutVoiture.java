@@ -1,14 +1,16 @@
 package com.carsale.back.API.Model;
 
+import com.carsale.back.API.Repository.StatutVoitureRepository;
 import jakarta.persistence.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class StatutVoiture {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "idStatut")
     private int idStatut;
 
@@ -26,7 +28,6 @@ public class StatutVoiture {
 	    20: en attente de validation
     * */
     private int statut;
-
 
     public void setDateStatut(Date dateStatut) {
         this.dateStatut = dateStatut;
@@ -67,4 +68,6 @@ public class StatutVoiture {
     }
 
     public StatutVoiture(){}
+
+
 }

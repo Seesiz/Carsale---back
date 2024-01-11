@@ -15,7 +15,7 @@ public class Voiture {
     /*
     * ito ilay tompony ilay voiture
     * */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idPersonne", referencedColumnName = "idPersonne")
     private Personne personne;
 
@@ -42,7 +42,7 @@ public class Voiture {
     * EtatVoiture = 8 => misy kika
     * EtatVoiture = 0 => Efa tena ratsy be
     * */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idEtat", referencedColumnName = "idEtat")
     private EtatVoiture EtatVoiture;
 

@@ -44,11 +44,6 @@ Voiture:
 	-Etat: /10
 	-prix
 
-DetailVoiture:
-	-idVoiture
-	-date:
-	-Desciption : (Text)
-
 Statut Voiture:
 	-idSatut
 	-idVoiture
