@@ -183,6 +183,7 @@ public class Personne {
         password = sel + password;
         md.update(password.getBytes());
         byte byteData[] = md.digest();
+
         //convertir le tableau de bits en une format hexadécimal
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < byteData.length; i++) {
