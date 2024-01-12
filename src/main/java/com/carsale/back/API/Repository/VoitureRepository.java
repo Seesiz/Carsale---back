@@ -13,5 +13,4 @@ import java.util.List;
 public interface VoitureRepository extends JpaRepository<Voiture,Integer> {
     List<Voiture> findByCategorie(Categorie c);
     List<Voiture> findByModel(Model m);
-    List<Voiture> findByEtat(EtatVoiture EtatVoiture);
 }

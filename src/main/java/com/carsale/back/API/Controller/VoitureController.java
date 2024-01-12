@@ -1,6 +1,9 @@
 package com.carsale.back.API.Controller;
 
+import com.carsale.back.API.Model.EtatVoiture;
 import com.carsale.back.API.Model.Voiture;
+import com.carsale.back.API.Repository.EtatVoitureRepository;
+import com.carsale.back.API.Repository.VoitureRepository;
 import com.carsale.back.API.Service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -68,4 +71,5 @@ public class VoitureController {
             return reponse;
         }
     }
+
 }
