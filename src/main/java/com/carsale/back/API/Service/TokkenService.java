@@ -29,4 +29,8 @@ public class TokkenService {
         tokken_rep.delete(t);
         return t;
     }
+
+    public Tokken checTokken(String valeur) throws Exception{
+        return tokken_rep.findByValeurtokken(valeur);
+    }
 }

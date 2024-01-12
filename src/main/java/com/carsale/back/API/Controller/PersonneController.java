@@ -1,7 +1,10 @@
 package com.carsale.back.API.Controller;
 
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.Tokken;
+import com.carsale.back.API.Repository.TokkenRepository;
 import com.carsale.back.API.Service.PersonneService;
+import com.carsale.back.API.Service.TokkenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +19,42 @@ public class PersonneController {
     @Autowired
     private PersonneService personne_serv;
 
+    @Autowired
+    private TokkenService tokken_ser;
+
     @GetMapping()
     public List<Personne> getAll(){
         return  personne_serv.getListPersonne();
     }
 
     @PostMapping()
-    public ResponseEntity<Object> ajoutPersonne(@RequestBody Personne p) {
+    public HashMap<String,Object>  ajoutPersonne(@RequestBody Personne p) {
+        HashMap<String,Object> reponse = new HashMap<>();
         try {
-            Personne addedPerson = personne_serv.ajoutPersonne(p);
-            return new ResponseEntity<>(addedPerson, HttpStatus.OK);
+            reponse = personne_serv.ajoutPersonne(p);
+            return reponse;
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            reponse.put("message",e.getMessage());
+            return reponse;
         }
     }
 
     @PutMapping
-    public Personne modifierPersonne(@RequestBody Personne p){
-        return personne_serv.modifierPersonne(p.getIdPersonne(),p);
+    public ResponseEntity<Object> modifierPersonne(@RequestBody Personne p,
+                                     @RequestHeader("tokken") String tokken){
+        HashMap<String,Object> reponse = new HashMap<>();
+        try {
+            Tokken t = tokken_ser.checTokken(tokken);
+            if (t == null ){
+                reponse.put("message","Tokken invalide ");
+                return new ResponseEntity<>(reponse,HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            reponse.put("message",e.getMessage());
+            return new ResponseEntity<>(reponse,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        reponse.put("data",personne_serv.modifierPersonne(p.getIdPersonne(),p));
+        return new ResponseEntity<>( reponse,HttpStatus.OK);
     }
 
     @PostMapping("/login")

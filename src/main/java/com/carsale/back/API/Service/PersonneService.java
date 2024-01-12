@@ -28,15 +28,17 @@ public class PersonneService {
     @Autowired
     private TokkenService tokken_serv;
 
-    public Personne ajoutPersonne(Personne p) throws Exception{
+    public HashMap<String,Object>  ajoutPersonne(Personne p) throws Exception{
+        HashMap<String,Object> reponse = new HashMap<>();
         String mdp = p.criptage(p.getMotDePass());
         Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
         p.setCompte(c);
-        System.out.println(mdp +" ----------");
         p.setMotDePass(mdp);
         p = personne_rep.save(p);
         Tokken tokken= tokken_serv.creationTokken(p,new Date());
-        return p;
+        reponse.put("personne",p);
+        reponse.put("tokken",tokken);
+        return reponse;
     }
 
     public List<Personne> getListPersonne(){
@@ -75,13 +77,13 @@ public class PersonneService {
             return reponse;
         }
         if(!p.getMotDePass().equals(motDePassCripte)){
-            System.out.println(p.getMotDePass() + "-----" + motDePassCripte);
             reponse.put("message","Mot de passe incorrecte");
             return reponse;
         }
-        reponse.put("reponse",p);
         Date d =new Date();
         Tokken  tokken = tokken_serv.creationTokken(p,d);
+        reponse.put("tokken",tokken);
+        reponse.put("reponse",p);
         return reponse;
     }
 }
