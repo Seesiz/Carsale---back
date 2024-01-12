@@ -127,4 +127,21 @@ public class VoitureService {
         }
         return listEnVente;
     }
+
+    public List<Voiture> getVoitureByPrix(double prix1,double prix2){
+        if (prix2 > prix1){
+            double variable = prix2;
+            prix1 = prix2;
+            prix2 = variable;
+        }
+        List<Voiture> listEnVente =new ArrayList<>();
+        List<Voiture> listVoiture = voiture_rep.findByPrixBetween(prix1,prix2);
+        for (int i = 0; i < listVoiture.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
+            if (statut.getStatut()==2){
+                listEnVente.add(listVoiture.get(i));
+            }
+        }
+        return listEnVente;
+    }
 }

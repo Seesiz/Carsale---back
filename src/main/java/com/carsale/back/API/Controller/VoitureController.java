@@ -54,7 +54,7 @@ public class VoitureController {
             reponse.put("data",list);
             return reponse;
         }else {
-            reponse.put("message","aucune voiture associer avec cette model");
+            reponse.put("message","aucune voiture associer avec cet model");
             return reponse;
         }
     }
@@ -67,7 +67,20 @@ public class VoitureController {
             reponse.put("data",list);
             return reponse;
         }else {
-            reponse.put("message","aucune voiture associer avec cette model");
+            reponse.put("message","aucune voiture associer avec cet model");
+            return reponse;
+        }
+    }
+
+    @GetMapping("/prix/{prix1}/{prix2}")
+    public  HashMap<String, Object> getPrix(@PathVariable double prix1, @PathVariable double prix2){
+        HashMap<String,Object> reponse = new HashMap<>();
+        List<Voiture> list = voiture_serv.getVoitureByPrix(prix1,prix2);
+        if (list.size()>0){
+            reponse.put("data",list);
+            return reponse;
+        }else {
+            reponse.put("message","aucune voiture associer avec cet model");
             return reponse;
         }
     }
