@@ -48,7 +48,7 @@ public class AdminController {
             @RequestBody Personne personne) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("tokken", tokken);  // Set the "tokken" value as a header
-        headers.set("personne",personne.toString());
+        headers.set("data",personne.toString());
 
         return new ResponseEntity<>(personne, headers, HttpStatus.OK);
     }
