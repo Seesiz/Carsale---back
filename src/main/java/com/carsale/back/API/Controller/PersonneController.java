@@ -47,18 +47,4 @@ public class PersonneController {
         }
     }
 
-    @GetMapping("/cryptage")
-    public String cryptage() {
-        String sel = "dac6595c04dda81";
-        try {
-            String val = new Personne().criptage("randy");
-
-            String val2 = new Personne().criptage("randy");
-
-            return val + " <br> " + val2;
-        }catch (Exception e){
-            return e.getMessage();
-        }
-    }
-
 }
