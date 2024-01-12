@@ -16,7 +16,7 @@ import java.util.List;
 public class VoitureController {
     @Autowired
     private VoitureService voiture_serv;
-
+    //----Voiture en vente rehetra
     @GetMapping()
     public List<Voiture> getAll(){
         return voiture_serv.getAllVoiture();

@@ -47,7 +47,7 @@ public class VoitureService {
         List<Voiture> allVoiture = voiture_rep.findAll();
         for (int i = 0; i < allVoiture.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(allVoiture.get(i).getIdVoiture());
-            if (statut.getIdStatut() == 1){
+            if (statut.getIdStatut() == 2){
                 voitureEnVente.add(allVoiture.get(i));
             }
         }
