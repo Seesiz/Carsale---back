@@ -36,7 +36,7 @@ public class PersonneService {
         p.setMotDePass(mdp);
         p = personne_rep.save(p);
         Tokken tokken= tokken_serv.creationTokken(p,new Date());
-        reponse.put("personne",p);
+        reponse.put("data",p);
         reponse.put("tokken",tokken);
         return reponse;
     }
@@ -83,7 +83,7 @@ public class PersonneService {
         Date d =new Date();
         Tokken  tokken = tokken_serv.creationTokken(p,d);
         reponse.put("tokken",tokken);
-        reponse.put("reponse",p);
+        reponse.put("data",p);
         return reponse;
     }
 }
