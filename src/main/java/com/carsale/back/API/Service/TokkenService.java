@@ -15,16 +15,17 @@ public class TokkenService {
 
     public Tokken creationTokken(Personne p, Date dateTimeDebut) throws Exception{
         Tokken t= new Tokken(p,dateTimeDebut);
+        System.out.println(t);
         return tokken_rep.save(t);
     }
 
-    public Tokken checkTokken(Personne p) throws Exception{
-        Tokken t =tokken_rep.findByPersonne(p);
+    public Tokken checkTokken(Personne p,String valeur) throws Exception{
+        Tokken t =tokken_rep.findByPersonneAndValeurtokken(p,valeur);
         return t;
     }
 
-    public Tokken remouveTokken(Personne p) throws Exception{
-        Tokken t =tokken_rep.findByPersonne(p);
+    public Tokken remouveTokken(String tokken) throws Exception{
+        Tokken t =tokken_rep.findByValeurtokken(tokken);
         tokken_rep.delete(t);
         return t;
     }

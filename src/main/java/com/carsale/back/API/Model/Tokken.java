@@ -3,6 +3,8 @@ package com.carsale.back.API.Model;
 import jakarta.persistence.*;
 
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 @Entity
 public class Tokken {
@@ -13,14 +15,14 @@ public class Tokken {
 
     private String valeurtokken;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idPersonne", referencedColumnName = "idPersonne")
-    private Personne Personne;
+    private Personne personne;
     private Date dateTimeDebut;
     private Date dateTimeFin;
 
     public void setPersonne(Personne idPersonne) {
-        this.Personne = idPersonne;
+        this.personne = idPersonne;
     }
 
     public void setValeurtokken(String valeurtokken) {
@@ -56,14 +58,16 @@ public class Tokken {
     }
 
     public Personne getPersonne() {
-        return Personne;
+        return personne;
     }
     public Tokken(){}
     public Tokken(Personne personne,Date dateTimeDebut) throws Exception {
         setPersonne(personne);
         setDateTimeDebut(dateTimeDebut);
-        Date d = dateTimeDebut;
-        d.setDate(dateTimeDebut.getDate()+1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTimeDebut);
+        calendar.add(Calendar.DATE, 1);
+        Date d = calendar.getTime();
         setDateTimeFin(d);
         setValeurtokken(genererTokken(dateTimeDebut));
     }

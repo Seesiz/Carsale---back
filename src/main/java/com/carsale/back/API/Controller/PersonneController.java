@@ -22,12 +22,12 @@ public class PersonneController {
     }
 
     @PostMapping()
-    public ResponseEntity<Personne> ajoutPersonne(@RequestBody Personne p) {
+    public ResponseEntity<Object> ajoutPersonne(@RequestBody Personne p) {
         try {
             Personne addedPerson = personne_serv.ajoutPersonne(p);
             return new ResponseEntity<>(addedPerson, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

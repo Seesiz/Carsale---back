@@ -2,11 +2,14 @@ package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Compte;
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.Tokken;
 import com.carsale.back.API.Repository.CompteRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
+import com.carsale.back.API.Repository.TokkenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -19,11 +22,21 @@ public class PersonneService {
     @Autowired
     private CompteRepository compte_rep;
 
+    @Autowired
+    private TokkenRepository tokken_rep;
+
+    @Autowired
+    private TokkenService tokken_serv;
+
     public Personne ajoutPersonne(Personne p) throws Exception{
+        String mdp = p.criptage(p.getMotDePass());
         Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
         p.setCompte(c);
-        p.setMotDePass(p.getMotDePass());
-        return personne_rep.save(p);
+        System.out.println(mdp +" ----------");
+        p.setMotDePass(mdp);
+        p = personne_rep.save(p);
+        Tokken tokken= tokken_serv.creationTokken(p,new Date());
+        return p;
     }
 
     public List<Personne> getListPersonne(){
@@ -62,10 +75,13 @@ public class PersonneService {
             return reponse;
         }
         if(!p.getMotDePass().equals(motDePassCripte)){
-            reponse.put("message","Mot de passe incorreste");
+            System.out.println(p.getMotDePass() + "-----" + motDePassCripte);
+            reponse.put("message","Mot de passe incorrecte");
             return reponse;
         }
         reponse.put("reponse",p);
+        Date d =new Date();
+        Tokken  tokken = tokken_serv.creationTokken(p,d);
         return reponse;
     }
 }
