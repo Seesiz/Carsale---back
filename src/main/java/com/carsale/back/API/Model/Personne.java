@@ -40,7 +40,7 @@ public class Personne {
     * */
     @Column(unique = true)
     private String cin;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idCompte", referencedColumnName = "idCompte")
     private Compte compte;
 
