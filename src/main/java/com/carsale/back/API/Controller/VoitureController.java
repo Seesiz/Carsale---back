@@ -54,7 +54,7 @@ public class VoitureController {
             reponse.put("data",list);
             return reponse;
         }else {
-            reponse.put("message","aucune voiture associer avec cet model");
+            reponse.put("message","aucune voiture associer avec cette categorie");
             return reponse;
         }
     }
@@ -67,7 +67,7 @@ public class VoitureController {
             reponse.put("data",list);
             return reponse;
         }else {
-            reponse.put("message","aucune voiture associer avec cet model");
+            reponse.put("message","aucune voiture associer avec cette marque");
             return reponse;
         }
     }
@@ -80,7 +80,7 @@ public class VoitureController {
             reponse.put("data",list);
             return reponse;
         }else {
-            reponse.put("message","aucune voiture associer avec cet model");
+            reponse.put("message","aucune voiture associer avec ce prix");
             return reponse;
         }
     }
