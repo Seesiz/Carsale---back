@@ -16,11 +16,23 @@ import java.util.List;
 public class VoitureController {
     @Autowired
     private VoitureService voiture_serv;
-    //----Voiture en vente rehetra
+    /*
+    * Par defaut izy ra vide ny voiture en vente rehetra
+    * afaka asina parametre int
+    * 0 => En attente de validation
+    * 1 => En vente
+    * 2 => Vendu
+    * */
     @GetMapping()
-    public List<Voiture> getAll(){
+    public List<Voiture> getAllEnVente(){
         return voiture_serv.getAllVoiture();
     }
+
+    @GetMapping("/{idVoiture}")
+    public Voiture getAllEnVente(@PathVariable int idVoiture){
+        return voiture_serv.findVoiture(idVoiture);
+    }
+
 
     @PostMapping()
     public Voiture ajoutVoiture(@RequestBody Voiture v){

@@ -54,6 +54,29 @@ public class VoitureService {
         return voitureEnVente;
     }
 
+    /*
+    * Maka ny voiture par Statut
+    * 1=> en attente de validation
+    * 2=> en vente
+    * 3=> vendu
+    * */
+
+    public List<Voiture> getAllVoiture(int etatStatut){
+        List<Voiture> voitureEnVente = new ArrayList<>();
+        List<Voiture> allVoiture = voiture_rep.findAll();
+        for (int i = 0; i < allVoiture.size(); i++) {
+            StatutVoiture statut = statutVoiture_serv.getStatut(allVoiture.get(i).getIdVoiture());
+            if (statut.getIdStatut() == etatStatut){
+                voitureEnVente.add(allVoiture.get(i));
+            }
+        }
+        return voitureEnVente;
+    }
+
+    public Voiture findVoiture(int idVoiture){
+        return voiture_rep.findById(idVoiture).orElseThrow(()-> new RuntimeException("Voiture avec ID :"+idVoiture +" introuvable"));
+    }
+
     public Voiture ajoutVoiture(Voiture v){
         Personne personne = personne_rep.findById(v.getPersonne().getIdPersonne()).get();
         Categorie categorie = categorie_rep.findById((v.getCategorie().getIdCategorie())).get();
