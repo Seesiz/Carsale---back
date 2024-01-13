@@ -33,13 +33,14 @@ public class AdminController {
     @PostMapping()
     public HashMap<String,Object> ajoutCompteAdmin(@RequestBody Admin a){
         HashMap<String, Object> reponse = new HashMap<>();
-        Admin admin = admin_ser.ajoutCompteAdmin(a);
-        if(admin != null){
-            reponse.put("data",admin);
-            return reponse;
+        try{
+            reponse = admin_ser.ajoutCompteAdmin(a);
+            return reponse ;
+
+        } catch (Exception e){
+            reponse.put("message",e.getMessage());
+            return reponse ;
         }
-        reponse.put("message","erreur");
-        return reponse ;
     }
 
     @GetMapping("/test")
