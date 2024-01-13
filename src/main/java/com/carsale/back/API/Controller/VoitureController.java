@@ -19,9 +19,9 @@ public class VoitureController {
     /*
     * Par defaut izy ra vide ny voiture en vente rehetra
     * afaka asina parametre int
-    * 0 => En attente de validation
-    * 1 => En vente
-    * 2 => Vendu
+    * 10 => En attente de validation
+    * 20 => En vente
+    * 30 => Vendu
     * */
     @GetMapping()
     public List<Voiture> getAllEnVente(){

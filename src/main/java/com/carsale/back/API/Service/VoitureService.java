@@ -47,7 +47,7 @@ public class VoitureService {
         List<Voiture> allVoiture = voiture_rep.findAll();
         for (int i = 0; i < allVoiture.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(allVoiture.get(i).getIdVoiture());
-            if (statut.getIdStatut() == 2){
+            if (statut.getIdStatut() == 20){
                 voitureEnVente.add(allVoiture.get(i));
             }
         }
@@ -56,9 +56,9 @@ public class VoitureService {
 
     /*
     * Maka ny voiture par Statut
-    * 1=> en attente de validation
-    * 2=> en vente
-    * 3=> vendu
+    * 10=> en attente de validation
+    * 20=> en vente
+    * 30=> vendu
     * */
 
     public List<Voiture> getAllVoiture(int etatStatut){
@@ -114,7 +114,7 @@ public class VoitureService {
         List<Voiture> listEnVente = new ArrayList<>();
         for (int i = 0; i < listVoiture.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
-            if (statut.getStatut()==2){
+            if (statut.getStatut()==20){
                 listEnVente.add(listVoiture.get(i));
             }
         }
@@ -126,7 +126,7 @@ public class VoitureService {
         List<Voiture> listEnVente = new ArrayList<>();
         for (int i = 0; i < listVoiture.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
-            if (statut.getStatut()==2){
+            if (statut.getStatut()==20){
                 listEnVente.add(listVoiture.get(i));
             }
         }
@@ -144,7 +144,7 @@ public class VoitureService {
 
         for (int i = 0; i < reponse.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(reponse.get(i).getIdVoiture());
-            if (statut.getStatut()==2){
+            if (statut.getStatut()==20){
                 listEnVente.add(reponse.get(i));
             }
         }
@@ -161,7 +161,7 @@ public class VoitureService {
         List<Voiture> listVoiture = voiture_rep.findByPrixBetween(prix1,prix2);
         for (int i = 0; i < listVoiture.size(); i++) {
             StatutVoiture statut = statutVoiture_serv.getStatut(listVoiture.get(i).getIdVoiture());
-            if (statut.getStatut()==2){
+            if (statut.getStatut()==20){
                 listEnVente.add(listVoiture.get(i));
             }
         }

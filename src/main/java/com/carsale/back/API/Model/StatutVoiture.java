@@ -22,10 +22,10 @@ public class StatutVoiture {
     private Date dateStatut;
 
     /*
-    * (10-19 Vendu ,  20 -29 En atente de validation, )
-	    10 vendu fa mbola tsy livré
-		11 vendu sady livré
-	    20: en attente de validation
+    * (
+	    10 en attente de validation
+		20 En vente
+		30 vendu
     * */
     private int statut;
 
