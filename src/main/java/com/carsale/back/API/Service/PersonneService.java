@@ -30,10 +30,9 @@ public class PersonneService {
 
     public HashMap<String,Object>  ajoutPersonne(Personne p) throws Exception{
         HashMap<String,Object> reponse = new HashMap<>();
-        String mdp = p.criptage(p.getMotDePass());
         Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
         p.setCompte(c);
-        p.setMotDePass(mdp);
+        //p.setMotDePass(p.getMotDePass());
         p = personne_rep.save(p);
         Tokken tokken= tokken_serv.creationTokken(p,new Date());
         reponse.put("data",p);
@@ -57,7 +56,7 @@ public class PersonneService {
                     personne.setCin(p.getCin());
                     personne.setContact(p.getContact());
                     try {
-                        personne.setMotDePass(p.criptage(p.getMotDePass()));
+                        personne.setMotDePass(p.getMotDePass());
                     } catch (Exception e){
                         throw new RuntimeException(e);
                     }

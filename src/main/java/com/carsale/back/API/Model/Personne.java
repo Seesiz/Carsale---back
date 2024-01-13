@@ -111,8 +111,8 @@ public class Personne {
         return motDePass;
     }
 
-    public void setMotDePass(String motDePass) {
-        this.motDePass = motDePass;
+    public void setMotDePass(String motDePass) throws Exception {
+        this.motDePass = criptage(motDePass);;
     }
 
     public Compte getCompte() {
@@ -132,9 +132,13 @@ public class Personne {
     }
 
     public Personne(){}
+    public Personne(int idPersonne){
+        setIdPersonne(idPersonne);
+    }
+
 
     public Personne(int idPersonne, String nom, String prenom, char sexe, Date dateNaissance,
-                    String contact, String mail, String motDePass, String cin ,Compte compte) {
+                    String contact, String mail, String motDePass, String cin ,Compte compte) throws Exception{
         setIdPersonne(idPersonne);
         setNom(nom);
         setPrenom(prenom);
@@ -148,7 +152,7 @@ public class Personne {
     }
 
     public Personne(String nom, String prenom, char sexe, Date dateNaissance,
-                    String contact, String mail, String motDePass, String cin ,Compte compte) {
+                    String contact, String mail, String motDePass, String cin ,Compte compte) throws Exception{
         setNom(nom);
         setPrenom(prenom);
         setSexe(Character.toUpperCase(sexe));
@@ -161,7 +165,7 @@ public class Personne {
     }
 
     public Personne(String nom, String prenom, char sexe, String dateNaissance, String contact,
-                    String mail, String motDePass,String cin ,Compte compte) throws java.text.ParseException{
+                    String mail, String motDePass,String cin ,Compte compte) throws Exception{
         setNom(nom);
         setPrenom(prenom);
         setSexe(Character.toUpperCase(sexe));
@@ -173,9 +177,6 @@ public class Personne {
         setCompte(compte);
     }
 
-    public Personne(int idPersonne){
-        setIdPersonne(idPersonne);
-    }
 
     public String criptage(String password) throws Exception{
         String sel = "dac6595c04dda81";
