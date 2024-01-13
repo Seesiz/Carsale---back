@@ -44,21 +44,29 @@ Voiture:
 	-Etat: /10
 	-prix
 
+<<<<<<< HEAD
 
 DetailVoiture:
 	-idVoiture
 	-date:
 	-Desciption : (Text)
 
+Annonce:(Novaiko kely ty anh)
+	-idAnnonce
+=======
 Statut Voiture:
 	-idSatut
+>>>>>>> 113101f98509fd035d838e65fd218dad03fc0349
 	-idVoiture
 	-Date
 	-Statut : (10-19 Vendu ,  20 -29 En atente de validation, )
 			10 vendu fa mbola tsy livré
 			11 vendu sady livré
 			......
-			(Annonce)
+
+--->Publication anonce : AjoutVoiture+ Ajout statut (En atente de validation) + Ajout caractériqtique Voiture(Mongo: sary + option + descipription + ,.......)
+--->Validation anonce: Ajout statut voiture
+--->Affiche ny annonce: select (Voiture,statut anonce valide et non vendu) + select caractériqtique Voiture(Mongo)
 
 Transaction:
 	-idTransaction
@@ -93,10 +101,7 @@ Front office :
 	Liste des annonces récentes (Date -1mois)
 	List des annonces Favoris(mila login)
 
-
 Caractéristique voiture:
-
-
 Voiture:
 Marque,Model,
 
@@ -116,5 +121,9 @@ voiture:
 ->Front office
 	Annonce + vente
 
+------------------------------Partie Prisca---------------------------------------
+->affichage back office
+    .genralisation affichage CRUD
+    .partie back: CRUD rehetra efa vita
 ------------------------------Message mongoDB
 -Notification FIREBASE

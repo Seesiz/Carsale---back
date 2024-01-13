@@ -1,6 +1,7 @@
 package com.carsale.back.API.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +34,13 @@ public class Admin{
 
     @Column(columnDefinition = "numeric(15,2)")
     private double argent;
+
+    /*
+    * Etat = 1 : admin actuel
+    * Etat = 0 : ancien admin
+    * */
+    @ColumnDefault("1")
+    private int etatAdmin;
 
     public void setContact(String contact) {
         this.contact = contact;
@@ -104,10 +112,18 @@ public class Admin{
         return prenom;
     }
 
+    public void setEtatAdmin(int etatAdmin) {
+        this.etatAdmin = etatAdmin;
+    }
+
+    public int getEtatAdmin() {
+        return etatAdmin;
+    }
+
     public Admin(){}
 
     public Admin(int idAdmin, String nom, String prenom, Date dateNaissance,
-                 String contact, String mail, String motDePass, double argent) {
+                 String contact, String mail, String motDePass, double argent,int etatAdmin) {
         setIdAdmin(idAdmin);
         setNom(nom);
         setPrenom(prenom);
@@ -116,10 +132,11 @@ public class Admin{
         setMail(mail);
         setMotDePass(motDePass);
         setArgent(argent);
+        setEtatAdmin(etatAdmin);
     }
 
     public Admin(String nom, String prenom, Date dateNaissance, String contact,
-                 String mail, String motDePass, double argent) {
+                 String mail, String motDePass, double argent,int etatAdmin) {
         setNom(nom);
         setPrenom(prenom);
         setDateNaissance(dateNaissance);
@@ -127,10 +144,11 @@ public class Admin{
         setMail(mail);
         setMotDePass(motDePass);
         setArgent(argent);
+        setEtatAdmin(etatAdmin);
     }
 
     public Admin(String nom, String prenom, String dateNaissance, String contact,
-                 String mail, String motDePass, double argent) throws  java.text.ParseException {
+                 String mail, String motDePass, double argent,int etatAdmin) throws  java.text.ParseException {
         setNom(nom);
         setPrenom(prenom);
         setDateNaissance(dateNaissance);
@@ -138,5 +156,6 @@ public class Admin{
         setMail(mail);
         setMotDePass(motDePass);
         setArgent(argent);
+        setEtatAdmin(etatAdmin);
     }
 }

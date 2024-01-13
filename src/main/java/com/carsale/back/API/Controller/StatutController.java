@@ -1,6 +1,7 @@
 package com.carsale.back.API.Controller;
 
 import com.carsale.back.API.Model.StatutVoiture;
+import com.carsale.back.API.Model.Voiture;
 import com.carsale.back.API.Service.StatutVoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,16 @@ public class StatutController {
 
     @PutMapping()
     public StatutVoiture modifierStatut(@RequestBody StatutVoiture statutVoiture){
+
         return statutVoiture_ser.modifierStatutVoiture(statutVoiture.getIdStatut(),statutVoiture);
     }
+
 
     @PostMapping()
     public StatutVoiture ajoutStatus(@RequestBody StatutVoiture s){
         return statutVoiture_ser.ajoutStatutVoiture(s);
     }
+
+
 
 }
