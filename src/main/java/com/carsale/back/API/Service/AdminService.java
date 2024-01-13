@@ -1,11 +1,15 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Admin;
+import com.carsale.back.API.Model.Compte;
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.Tokken;
 import com.carsale.back.API.Repository.AdminRepository;
+import com.carsale.back.API.Repository.TokkenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -13,10 +17,41 @@ public class AdminService {
     @Autowired
     private AdminRepository admin_rep;
 
-    public Admin ajoutCompteAdmin(Admin a){
+    @Autowired
+    private TokkenRepository tokken_rep;
+
+    @Autowired
+    private PersonneService personne_service;
+
+    @Autowired
+    private TokkenService tokkenService;
+
+    public HashMap<String,Object> ajoutCompteAdmin(Admin a) throws Exception{
+        HashMap<String,Object> rep= new HashMap<>();
+        Personne p =new Personne();
+        Compte c = new Compte();
+        c.setIdCompte(0);
+        String motDePassCrypte = new Personne().criptage(a.getMotDePass());
+
+        p.setNom(a.getNom());
+        p.setPrenom(a.getPrenom());
+        p.setContact(a.getContact());
+        p.setMail(a.getMail());
+        p.setMotDePass(a.getMotDePass());
+        p.setCin(null);
+        p.setCompte(c);
+        p.setDateNaissance(a.getDateNaissance());
+        p.setSexe('N');
+
+        HashMap<String,Object> hashMap = personne_service.ajoutPersonne(p);
+
+        if (hashMap.get("tokken") != null){
+            rep.put("tokken",hashMap.get("tokken"));
+        }
         a.setEtatAdmin(1);
-        a.setMotDePass(a.getMotDePass());
-        return admin_rep.save(a);
+        a.setMotDePass(motDePassCrypte);
+        rep.put("data",admin_rep.save(a));
+        return rep;
     }
 
     public List<Admin> getAdminValid(){
@@ -47,8 +82,5 @@ public class AdminService {
         a.setEtatAdmin(0);
         return  admin_rep.save(a);
     }
-
-
-
 
 }

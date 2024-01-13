@@ -2,11 +2,14 @@ package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Compte;
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.Tokken;
 import com.carsale.back.API.Repository.CompteRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
+import com.carsale.back.API.Repository.TokkenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -19,11 +22,23 @@ public class PersonneService {
     @Autowired
     private CompteRepository compte_rep;
 
-    public Personne ajoutPersonne(Personne p) throws Exception{
+    @Autowired
+    private TokkenRepository tokken_rep;
+
+    @Autowired
+    private TokkenService tokken_serv;
+
+    public HashMap<String,Object>  ajoutPersonne(Personne p) throws Exception{
+        HashMap<String,Object> reponse = new HashMap<>();
+        String mdp = p.criptage(p.getMotDePass());
         Compte c = compte_rep.findById(p.getCompte().getIdCompte()).orElseThrow(()-> new RuntimeException("Compte intouvable"));
         p.setCompte(c);
-        p.setMotDePass(p.getMotDePass());
-        return personne_rep.save(p);
+        p.setMotDePass(mdp);
+        p = personne_rep.save(p);
+        Tokken tokken= tokken_serv.creationTokken(p,new Date());
+        reponse.put("data",p);
+        reponse.put("tokken",tokken);
+        return reponse;
     }
 
     public List<Personne> getListPersonne(){
@@ -41,7 +56,11 @@ public class PersonneService {
                     personne.setMail(p.getMail());
                     personne.setCin(p.getCin());
                     personne.setContact(p.getContact());
-                    personne.setMotDePass(p.getMotDePass());
+                    try {
+                        personne.setMotDePass(p.criptage(p.getMotDePass()));
+                    } catch (Exception e){
+                        throw new RuntimeException(e);
+                    }
                     personne.setCompte(c);
                     return personne;
                 }
@@ -58,10 +77,13 @@ public class PersonneService {
             return reponse;
         }
         if(!p.getMotDePass().equals(motDePassCripte)){
-            reponse.put("message","Mot de passe incorreste");
+            reponse.put("message","Mot de passe incorrecte");
             return reponse;
         }
-        reponse.put("reponse",p);
+        Date d =new Date();
+        Tokken  tokken = tokken_serv.creationTokken(p,d);
+        reponse.put("tokken",tokken);
+        reponse.put("data",p);
         return reponse;
     }
 }

@@ -20,12 +20,12 @@ public class CompteController {
     }
 
     @PostMapping()
-    public Compte ajoutCategori(@RequestBody Compte c){
+    public Compte ajoutConmpte(@RequestBody Compte c){
         return compte_serv.ajoutCompte(c);
     }
 
     @PutMapping()
-    public Compte modifierCategorie(@RequestBody Compte c){
+    public Compte modifierCompte(@RequestBody Compte c){
         return compte_serv.modifierCompte(c.getIdCompte(),c);
     }
 
