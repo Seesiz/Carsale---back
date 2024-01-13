@@ -15,7 +15,16 @@ public class Annonce {
     Voiture voiture;
     List<DetailVoiture> detailVoitures;
     List<String> photos;
+    List<Integer> favoriseur;
     int etat;
+
+    public List<Integer> getFavoriseur() {
+        return favoriseur;
+    }
+
+    public void setFavoriseur(List<Integer> favoriseur) {
+        this.favoriseur = favoriseur;
+    }
 
     public int getEtat() {
         return etat;

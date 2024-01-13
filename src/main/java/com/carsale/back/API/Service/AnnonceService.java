@@ -44,12 +44,30 @@ public class AnnonceService {
     }
 
     //By id
-    public Annonce byId(Integer id){
+    public Annonce byId(String id){
         return annonceRepository.findById(id).get();
     }
 
-    public void valder(Annonce annonce){
+    @Transactional
+    public void valider(String id){
+        Annonce annonce = byId(id);
         annonce.setEtat(10);
         update(annonce);
     }
+
+    public List<Annonce> getInvalide(){
+        return annonceRepository.findByEtat(0);
+    }
+
+    public List<Annonce> getFavorisFor(int idUser){
+        return annonceRepository.getFavorisFor(idUser);
+    }
+
+    @Transactional
+    public void favoriser(String idAnnonce,int idUser){
+        Annonce annonce = byId(idAnnonce);
+        annonce.getFavoriseur().add(idUser);
+        update(annonce);
+    }
+
 }

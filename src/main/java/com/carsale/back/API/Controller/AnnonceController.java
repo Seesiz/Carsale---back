@@ -2,6 +2,7 @@ package com.carsale.back.API.Controller;
 
 import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Service.AnnonceService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -40,8 +41,23 @@ public class AnnonceController {
     }
 
     @PutMapping("/valider")
-    public void valider(@RequestBody Annonce annonce){
-        annonceService.valder(annonce);
+    public void valider(@PathParam("idAnnonce") String idAnnonce){
+        annonceService.valider(idAnnonce);
+    }
+
+    @GetMapping("/invalide")
+    public List<Annonce> invalide(){
+        return annonceService.getInvalide();
+    }
+
+    @GetMapping("/favoris")
+    public List<Annonce> favoris(@PathParam("idUser") int idUser){
+        return annonceService.getFavorisFor(idUser);
+    }
+
+    @PostMapping("/favoriser")
+    public void favoriser(@PathParam("idAnnonce")String idAnnonce,@PathParam("idUser")int idUser){
+        annonceService.favoriser(idAnnonce,idUser);
     }
 
 }
