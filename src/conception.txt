@@ -51,9 +51,6 @@ DetailVoiture:
 	-date:
 	-Desciption : (Text)
 
-Annonce:(Novaiko kely ty anh)
-	-idAnnonce
-=======
 Statut Voiture:
 	-idSatut
 >>>>>>> 113101f98509fd035d838e65fd218dad03fc0349

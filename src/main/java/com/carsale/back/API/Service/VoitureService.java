@@ -39,6 +39,10 @@ public class VoitureService {
     @Autowired
     private StatutVoitureService statutVoiture_serv;
 
+    public List<Voiture> retrieve(){
+        return voiture_rep.findAll();
+    }
+
     /*
     * Return list voiture en vente
     * */

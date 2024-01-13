@@ -25,7 +25,7 @@ public class VoitureController {
     * */
     @GetMapping()
     public List<Voiture> getAllEnVente(){
-        return voiture_serv.getAllVoiture();
+        return voiture_serv.retrieve();
     }
 
     @GetMapping("/{idVoiture}")

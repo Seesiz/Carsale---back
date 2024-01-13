@@ -9,26 +9,52 @@ import java.util.List;
 @Document
 public class Annonce {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int idAnnonce;
-    Personne personne;
+    String id;
+    Date dateAnnonce;
+    Personne annonceur;
     Voiture voiture;
     List<DetailVoiture> detailVoitures;
+    List<String> photos;
+    int etat;
 
-    public int getIdAnnonce() {
-        return idAnnonce;
+    public int getEtat() {
+        return etat;
     }
 
-    public void setIdAnnonce(int idAnnonce) {
-        this.idAnnonce = idAnnonce;
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
 
-    public Personne getPersonne() {
-        return personne;
+    public Date getDateAnnonce() {
+        return dateAnnonce;
     }
 
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
+    public void setDateAnnonce(Date dateAnnonce) {
+        this.dateAnnonce = dateAnnonce;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Personne getAnnonceur() {
+        return annonceur;
+    }
+
+    public void setAnnonceur(Personne annonceur) {
+        this.annonceur = annonceur;
     }
 
     public Voiture getVoiture() {
