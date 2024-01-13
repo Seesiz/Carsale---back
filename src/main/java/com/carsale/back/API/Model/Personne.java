@@ -40,9 +40,6 @@ public class Personne {
     * */
     @Column(unique = true)
     private String cin;
-    @ManyToOne
-    @JoinColumn(name = "idCompte", referencedColumnName = "idCompte")
-    private Compte compte;
 
     public int getIdPersonne() {
         return idPersonne;
@@ -115,14 +112,6 @@ public class Personne {
         this.motDePass = criptage(motDePass);;
     }
 
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
-        this.compte = compte;
-    }
-
     public void setCin(String cin) {
         this.cin = cin;
     }
@@ -138,7 +127,7 @@ public class Personne {
 
 
     public Personne(int idPersonne, String nom, String prenom, char sexe, Date dateNaissance,
-                    String contact, String mail, String motDePass, String cin ,Compte compte) throws Exception{
+                    String contact, String mail, String motDePass, String cin) throws Exception{
         setIdPersonne(idPersonne);
         setNom(nom);
         setPrenom(prenom);
@@ -148,11 +137,10 @@ public class Personne {
         setMail(mail);
         setMotDePass(motDePass);
         setCin(cin);
-        setCompte(compte);
     }
 
     public Personne(String nom, String prenom, char sexe, Date dateNaissance,
-                    String contact, String mail, String motDePass, String cin ,Compte compte) throws Exception{
+                    String contact, String mail, String motDePass, String cin ) throws Exception{
         setNom(nom);
         setPrenom(prenom);
         setSexe(Character.toUpperCase(sexe));
@@ -161,11 +149,10 @@ public class Personne {
         setMail(mail);
         setMotDePass(motDePass);
         setCin(cin);
-        setCompte(compte);
     }
 
     public Personne(String nom, String prenom, char sexe, String dateNaissance, String contact,
-                    String mail, String motDePass,String cin ,Compte compte) throws Exception{
+                    String mail, String motDePass,String cin) throws Exception{
         setNom(nom);
         setPrenom(prenom);
         setSexe(Character.toUpperCase(sexe));
@@ -174,7 +161,6 @@ public class Personne {
         setMail(mail);
         setMotDePass(motDePass);
         setCin(cin);
-        setCompte(compte);
     }
 
 
