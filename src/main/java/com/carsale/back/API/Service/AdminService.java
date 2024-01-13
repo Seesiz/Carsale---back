@@ -1,6 +1,7 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Admin;
+import com.carsale.back.API.Model.Compte;
 import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Model.Tokken;
 import com.carsale.back.API.Repository.AdminRepository;
@@ -28,19 +29,23 @@ public class AdminService {
     public HashMap<String,Object> ajoutCompteAdmin(Admin a) throws Exception{
         HashMap<String,Object> rep= new HashMap<>();
         Personne p =new Personne();
-        String motDePassCrypte = p.criptage(a.getMotDePass());
+        Compte c = new Compte();
+        c.setIdCompte(0);
+        String motDePassCrypte = new Personne().criptage(a.getMotDePass());
+
         p.setNom(a.getNom());
         p.setPrenom(a.getPrenom());
         p.setContact(a.getContact());
-        p.setMotDePass(motDePassCrypte);
         p.setMail(a.getMail());
+        p.setMotDePass(a.getMotDePass());
+        p.setCin(null);
+        p.setCompte(c);
+        p.setDateNaissance(a.getDateNaissance());
+        p.setSexe('N');
 
         HashMap<String,Object> hashMap = personne_service.ajoutPersonne(p);
 
-        if(hashMap.get("data")!= null){
-            Personne temp = (Personne)  hashMap.get("data");
-            p.setIdPersonne(temp.getIdPersonne());
-        }if (hashMap.get("tokken") != null){
+        if (hashMap.get("tokken") != null){
             rep.put("tokken",hashMap.get("tokken"));
         }
         a.setEtatAdmin(1);
@@ -77,8 +82,5 @@ public class AdminService {
         a.setEtatAdmin(0);
         return  admin_rep.save(a);
     }
-
-
-
 
 }
