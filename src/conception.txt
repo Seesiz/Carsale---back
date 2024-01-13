@@ -50,15 +50,14 @@ DetailVoiture:
 	-date:
 	-Desciption : (Text)
 
-Statut Voiture:
-	-idSatut
+Annonce:(Novaiko kely ty anh)
+	-idAnnonce
 	-idVoiture
 	-Date
 	-Statut : (10-19 Vendu ,  20 -29 En atente de validation, )
 			10 vendu fa mbola tsy livré
 			11 vendu sady livré
 			......
-			(Annonce)
 
 Transaction:
 	-idTransaction
