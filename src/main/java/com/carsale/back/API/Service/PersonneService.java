@@ -72,15 +72,18 @@ public class PersonneService {
         String motDePassCripte = new Personne().criptage(motDePass);
         Personne p =personne_rep.findByMail(mail);
         if(p==null){
-            reponse.put("message","Personne introuvabe");
+            reponse.put("statut", false);
+            reponse.put("message","Personne introuvable");
             return reponse;
         }
         if(!p.getMotDePass().equals(motDePassCripte)){
+            reponse.put("statut", false);
             reponse.put("message","Mot de passe incorrecte");
             return reponse;
         }
         Date d =new Date();
         Tokken  tokken = tokken_serv.creationTokken(p,d);
+        reponse.put("statut", true);
         reponse.put("tokken",tokken);
         reponse.put("data",p);
         return reponse;
