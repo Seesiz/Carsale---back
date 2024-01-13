@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/personnes")
+@CrossOrigin(origins = "*")
 public class PersonneController {
     @Autowired
     private PersonneService personne_serv;
@@ -32,8 +33,10 @@ public class PersonneController {
         HashMap<String,Object> reponse = new HashMap<>();
         try {
             reponse = personne_serv.ajoutPersonne(p);
+            reponse.put("statut", true);
             return reponse;
         } catch (Exception e) {
+            reponse.put("statut", false);
             reponse.put("message",e.getMessage());
             return reponse;
         }
