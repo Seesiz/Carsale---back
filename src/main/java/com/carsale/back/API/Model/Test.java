@@ -7,16 +7,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Test {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    String id;
     String huhu;
 
-    public int getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

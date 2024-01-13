@@ -39,5 +39,10 @@ public class AnnonceController {
         annonceService.delete(annonce);
     }
 
+    @PutMapping("/valider")
+    public void valider(@RequestBody Annonce annonce){
+        annonceService.valder(annonce);
+    }
+
 }
 

@@ -22,6 +22,7 @@ public class AnnonceService {
     //Create
     @Transactional
     public Annonce create(Annonce annonce){
+        annonce.setEtat(0);
         return annonceRepository.save(annonce);
     }
 
@@ -47,4 +48,8 @@ public class AnnonceService {
         return annonceRepository.findById(id).get();
     }
 
+    public void valder(Annonce annonce){
+        annonce.setEtat(10);
+        update(annonce);
+    }
 }

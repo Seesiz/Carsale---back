@@ -35,3 +35,7 @@ build/
 ####conf divers###
 !**/src/main/resources/application.properties
 src/main/resources/application.properties
+pom.xml
+Carsale.sql
+src/main/resources/application.properties
+src/main/resources/application.properties
