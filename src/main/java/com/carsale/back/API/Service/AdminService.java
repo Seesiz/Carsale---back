@@ -1,9 +1,7 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Admin;
-import com.carsale.back.API.Model.Compte;
 import com.carsale.back.API.Model.Personne;
-import com.carsale.back.API.Model.Tokken;
 import com.carsale.back.API.Repository.AdminRepository;
 import com.carsale.back.API.Repository.TokkenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +27,6 @@ public class AdminService {
     public HashMap<String,Object> ajoutCompteAdmin(Admin a) throws Exception{
         HashMap<String,Object> rep= new HashMap<>();
         Personne p =new Personne();
-        Compte c = new Compte();
-        c.setIdCompte(0);
         String motDePassCrypte = new Personne().criptage(a.getMotDePass());
 
         p.setNom(a.getNom());
@@ -39,7 +35,6 @@ public class AdminService {
         p.setMail(a.getMail());
         p.setMotDePass(a.getMotDePass());
         p.setCin(null);
-        p.setCompte(c);
         p.setDateNaissance(a.getDateNaissance());
         p.setSexe('N');
 
