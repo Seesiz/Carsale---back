@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/messageries")
+@CrossOrigin(origins = "*")
 public class MessagerieController {
 
     private final MessagerieService messagerieService;

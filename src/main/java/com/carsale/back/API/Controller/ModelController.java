@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("models")
+@CrossOrigin(origins = "*")
 public class ModelController {
     @Autowired
     private ModelService model_serv;

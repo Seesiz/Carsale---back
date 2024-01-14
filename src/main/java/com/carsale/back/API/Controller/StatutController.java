@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/statutVoitures")
+@CrossOrigin(origins = "*")
 public class StatutController {
     @Autowired
     private StatutVoitureService statutVoiture_ser;
