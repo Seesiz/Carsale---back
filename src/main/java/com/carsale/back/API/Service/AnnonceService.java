@@ -59,6 +59,10 @@ public class AnnonceService {
         return annonceRepository.findByEtat(0);
     }
 
+    public List<Annonce> getValide(){
+        return annonceRepository.findByEtat(10);
+    }
+
     public List<Annonce> getFavorisFor(int idUser){
         return annonceRepository.getFavorisFor(idUser);
     }
