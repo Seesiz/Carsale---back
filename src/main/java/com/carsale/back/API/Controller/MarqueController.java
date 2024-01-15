@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/marques")
+@CrossOrigin(origins = "*")
 public class MarqueController {
     @Autowired
     private MarqueService marque_serv;
