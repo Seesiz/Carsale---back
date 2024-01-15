@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/annonces")
-
+@CrossOrigin(origins = "*")
 public class AnnonceController {
 
     private final AnnonceService annonceService;
@@ -48,6 +48,11 @@ public class AnnonceController {
     @GetMapping("/invalide")
     public List<Annonce> invalide(){
         return annonceService.getInvalide();
+    }
+
+    @GetMapping("/valide")
+    public List<Annonce> valide(){
+        return annonceService.getValide();
     }
 
     @GetMapping("/favoris")

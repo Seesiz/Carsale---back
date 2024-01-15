@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/detailVoitures")
-
+@CrossOrigin(origins = "*")
 public class DetailVoitureController {
 
     private final DetailVoitureService detailVoitureService;

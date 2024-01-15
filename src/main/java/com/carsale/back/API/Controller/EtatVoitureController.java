@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/etats")
+@CrossOrigin(origins = "*")
 public class EtatVoitureController {
     @Autowired
     private EtatVoitureService etatVoiture_serv;
