@@ -8,15 +8,23 @@ import java.util.List;
 public class Messagerie {
     @Id
     String id;
-    Personne sender;
+    int idSender;
     List<Messages> messages;
 
-    public Personne getSender() {
-        return sender;
+    public String getId() {
+        return id;
     }
 
-    public void setSender(Personne sender) {
-        this.sender = sender;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getIdSender() {
+        return idSender;
+    }
+
+    public void setIdSender(int idSender) {
+        this.idSender = idSender;
     }
 
     public List<Messages> getMessages() {
