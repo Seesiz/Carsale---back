@@ -4,6 +4,8 @@ import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Service.AnnonceService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -21,8 +23,9 @@ public class AnnonceController {
 
 
     @PostMapping
-    public void insert(@RequestBody Annonce annonce){
+    public Annonce insert(@RequestBody Annonce annonce){
         annonceService.create(annonce);
+        return annonce;
     }
 
     @GetMapping

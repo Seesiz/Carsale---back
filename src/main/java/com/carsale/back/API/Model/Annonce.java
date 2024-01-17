@@ -18,6 +18,14 @@ public class Annonce {
     List<Integer> favoriseur;
     int etat;
 
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
     public List<Integer> getFavoriseur() {
         return favoriseur;
     }
@@ -40,14 +48,6 @@ public class Annonce {
 
     public void setDateAnnonce(Date dateAnnonce) {
         this.dateAnnonce = dateAnnonce;
-    }
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<String> photos) {
-        this.photos = photos;
     }
 
     public String getId() {

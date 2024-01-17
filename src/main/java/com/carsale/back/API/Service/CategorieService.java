@@ -23,7 +23,7 @@ public class CategorieService {
     }
 
     public List<Categorie> getListCategories(){
-        return  categorie_rep.findCategoriesByEtatCategorie(1);
+        return  categorie_rep.findAll();
     }
 
     public Categorie modifierCategorie(int idCatogorie,Categorie c){

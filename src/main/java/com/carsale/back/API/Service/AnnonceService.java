@@ -1,29 +1,40 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Annonce;
+import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Repository.AnnonceRepository;
+import com.carsale.back.API.Repository.PersonneRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
+    private final PersonneRepository personneRepository;
 
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository) {
         this.annonceRepository = annonceRepository;
+        this.personneRepository = personneRepository;
     }
 
     //Create
     @Transactional
     public Annonce create(Annonce annonce){
+        annonce.setFavoriseur(new ArrayList<>());
         annonce.setEtat(0);
+        annonce.setAnnonceur(getPersonne(annonce.getAnnonceur()));
+        annonce.getVoiture().setPersonne(getPersonne(annonce.getAnnonceur()));
         return annonceRepository.save(annonce);
+    }
+
+
+    public Personne getPersonne(Personne personne){
+        return personneRepository.findById(personne.getIdPersonne()).get();
     }
 
     //Retrieve
