@@ -19,11 +19,11 @@ public class Voiture {
     @JoinColumn(name = "idPersonne", referencedColumnName = "idPersonne")
     private Personne personne;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idCategorie", referencedColumnName = "idCategorie")
     private Categorie categorie;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idModel", referencedColumnName = "idModel")
     private Model model;
 
@@ -147,5 +147,13 @@ public class Voiture {
         setPlaque(plaque);
         setEtat(etat);
         setPrix(prix);
+    }
+
+    public void isdataCompleted() throws Exception{
+        if(getPlaque().equals("")) throw new Exception("Une voiture doit avoir une plaque.");
+        if(getPrix() == 0) throw new Exception("On ne donne pas , on vend.");
+        if(getEtat() == null) throw new Exception("Veuillez mentionner l'etat de votre voiture.");
+        if(getCategorie() == null) throw new Exception("Quelle est la categorie de votre voiture.");
+        if(getModel() == null) throw new Exception("Quelle est le model de votre voiture.");
     }
 }

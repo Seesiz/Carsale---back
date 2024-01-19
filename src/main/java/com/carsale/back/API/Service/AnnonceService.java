@@ -4,6 +4,7 @@ import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Repository.AnnonceRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
+import com.carsale.back.API.Repository.VoitureRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +16,29 @@ import java.util.List;
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
     private final PersonneRepository personneRepository;
+    private final VoitureRepository voitureRepository;
+    private final TokkenService tokkenService;
 
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, TokkenService tokkenService) {
         this.annonceRepository = annonceRepository;
         this.personneRepository = personneRepository;
+        this.voitureRepository = voitureRepository;
+        this.tokkenService = tokkenService;
     }
 
     //Create
     @Transactional
-    public Annonce create(Annonce annonce){
+    public Annonce create(Annonce annonce,String valeurTokken) throws Exception {
         annonce.setFavoriseur(new ArrayList<>());
         annonce.setEtat(0);
         annonce.setAnnonceur(getPersonne(annonce.getAnnonceur()));
         annonce.getVoiture().setPersonne(getPersonne(annonce.getAnnonceur()));
+
+        tokkenService.hasTokken(annonce.getAnnonceur(),valeurTokken);
+        annonce.getVoiture().isdataCompleted();
+
+        voitureRepository.save(annonce.getVoiture());
         return annonceRepository.save(annonce);
     }
 
@@ -84,5 +94,6 @@ public class AnnonceService {
         annonce.getFavoriseur().add(idUser);
         update(annonce);
     }
+
 
 }

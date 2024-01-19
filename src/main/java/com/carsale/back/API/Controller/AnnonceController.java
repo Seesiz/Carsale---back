@@ -3,9 +3,11 @@ package com.carsale.back.API.Controller;
 import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Service.AnnonceService;
 import jakarta.websocket.server.PathParam;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,9 +25,17 @@ public class AnnonceController {
 
 
     @PostMapping
-    public Annonce insert(@RequestBody Annonce annonce){
-        annonceService.create(annonce);
-        return annonce;
+    public HashMap<String,Object> insert(@RequestHeader String tokken, @RequestBody Annonce annonce){
+        HashMap<String,Object> response = new HashMap<>();
+        try {
+            annonceService.create(annonce,tokken);
+            response.put("message","Annonce inserer avec success.");
+            response.put("statut",true);
+        } catch (Exception e) {
+            response.put("message",e.getMessage());
+            response.put("statut",false);
+        }
+        return response;
     }
 
     @GetMapping
