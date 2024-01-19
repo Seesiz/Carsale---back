@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
     List<Admin> findByEtatAdmin(int EtatAdmin);
+    Admin findByMail(String mail);
 }
