@@ -27,8 +27,6 @@ public class AdminService {
     public HashMap<String,Object> ajoutCompteAdmin(Admin a) throws Exception{
         HashMap<String,Object> rep= new HashMap<>();
         Personne p =new Personne();
-        String motDePassCrypte = new Personne().criptage(a.getMotDePass());
-
         p.setNom(a.getNom());
         p.setPrenom(a.getPrenom());
         p.setContact(a.getContact());
@@ -44,13 +42,35 @@ public class AdminService {
             rep.put("tokken",hashMap.get("tokken"));
         }
         a.setEtatAdmin(1);
-        a.setMotDePass(motDePassCrypte);
         rep.put("data",admin_rep.save(a));
         return rep;
     }
 
     public List<Admin> getAdminValid(){
         return admin_rep.findByEtatAdmin(1);
+    }
+
+    public HashMap<String, Object> login(String mail,String motDePass){
+        HashMap<String,Object> rep =new HashMap<>();
+        try {
+            String motDePassCripte= new Personne().criptage(motDePass);
+            HashMap<String,Object> personne = personne_service.login(mail,motDePass);
+
+            Admin a = admin_rep.findByMail(mail);
+            if(a==null){
+                rep.put("message","Le compte est introuvable");
+                return rep;
+            }
+            if(!a.getMotDePass().equals(motDePassCripte)){
+                rep.put("message","Mot pass invalide");
+                return rep;
+            }
+            rep.put("data",a);
+            return rep;
+        }catch (Exception e){
+            rep.put("message",e.getMessage());
+            return rep;
+        }
     }
 
     public Admin modifierCompteAdmin(int idAdmin,Admin ad) throws RuntimeException {
@@ -61,7 +81,7 @@ public class AdminService {
                     admin.setMail(ad.getMail());
                     admin.setContact(ad.getContact());
                     try {
-                        admin.setMotDePass(new Personne().criptage(ad.getMotDePass()));
+                        admin.setMotDePass(ad.getMotDePass());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

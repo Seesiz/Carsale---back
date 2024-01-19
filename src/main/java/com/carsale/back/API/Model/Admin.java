@@ -10,7 +10,7 @@ import java.util.Date;
 public class Admin{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idCategorie")
+    @Column(name = "idAdmin")
     private int idAdmin;
 
     private String nom;
@@ -68,8 +68,9 @@ public class Admin{
         this.mail = mail;
     }
 
-    public void setMotDePass(String motDePass) {
-        this.motDePass = motDePass;
+    public void setMotDePass(String motDePass) throws Exception{
+        String Pass = new Personne().criptage(motDePass);
+        this.motDePass = Pass;
     }
 
     public void setNom(String nom) {
@@ -123,7 +124,7 @@ public class Admin{
     public Admin(){}
 
     public Admin(int idAdmin, String nom, String prenom, Date dateNaissance,
-                 String contact, String mail, String motDePass, double argent,int etatAdmin) {
+                 String contact, String mail, String motDePass, double argent,int etatAdmin) throws Exception{
         setIdAdmin(idAdmin);
         setNom(nom);
         setPrenom(prenom);
@@ -136,7 +137,7 @@ public class Admin{
     }
 
     public Admin(String nom, String prenom, Date dateNaissance, String contact,
-                 String mail, String motDePass, double argent,int etatAdmin) {
+                 String mail, String motDePass, double argent,int etatAdmin) throws Exception{
         setNom(nom);
         setPrenom(prenom);
         setDateNaissance(dateNaissance);
@@ -148,7 +149,7 @@ public class Admin{
     }
 
     public Admin(String nom, String prenom, String dateNaissance, String contact,
-                 String mail, String motDePass, double argent,int etatAdmin) throws  java.text.ParseException {
+                 String mail, String motDePass, double argent,int etatAdmin) throws  Exception {
         setNom(nom);
         setPrenom(prenom);
         setDateNaissance(dateNaissance);

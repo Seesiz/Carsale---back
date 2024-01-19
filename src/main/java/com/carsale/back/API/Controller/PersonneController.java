@@ -28,6 +28,12 @@ public class PersonneController {
         return  personne_serv.getListPersonne();
     }
 
+    @GetMapping("/personnesInscrits")
+    public ResponseEntity<Object> getStatistique(){
+        ResponseEntity<Object> rep = new ResponseEntity<>(HttpStatus.OK);
+        return rep;
+    }
+
     @PostMapping()
     public HashMap<String,Object>  ajoutPersonne(@RequestBody Personne p) {
         HashMap<String,Object> reponse = new HashMap<>();

@@ -31,6 +31,12 @@ public class AdminController {
         return reponse;
     }
 
+    @PostMapping("/login")
+    public HashMap<String,Object> login(String mail, String motDePass){
+        HashMap<String,Object> reponse = admin_ser.login(mail,motDePass);
+        return reponse;
+    }
+
     @PostMapping()
     public HashMap<String,Object> ajoutCompteAdmin(@RequestBody Admin a){
         HashMap<String, Object> reponse = new HashMap<>();
