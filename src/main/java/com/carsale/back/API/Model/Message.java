@@ -44,7 +44,6 @@ public class Message {
     }
 
     public void setSender(Personne sender) throws Exception {
-        sender.setMotDePass(null);
         this.sender = sender;
     }
 
@@ -53,7 +52,6 @@ public class Message {
     }
 
     public void setReceiver(Personne receiver) throws Exception {
-        receiver.setMotDePass(null);
         this.receiver = receiver;
     }
 
