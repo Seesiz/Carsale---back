@@ -13,10 +13,10 @@ public interface MessageRepository extends MongoRepository<Message,String> {
 
     @Aggregation(pipeline = {
         "{ $match: { $or: [ { 'sender.idPersonne': ?0 }, { 'receiver.idPersonne': ?0 } ] } }",
-        "{ $group: { _id: { $cond: { if: { $eq: ['$sender.idPersonne' , ?0 ] }, then: '$receiver', else: '$sender' } } } }",
+        "{ $group: { _id: { $cond: { if: { $eq: ['$sender.idPersonne' , ?0 ] }, then: '$receiver.idPersonne', else: '$sender.idPersonne' } } } }",
         "{ $match: { _id: { $ne: ?0 } } }"
     })
-    public List<Object> getAllContact(int idUser);
+    public List<Integer> getAllContact(int idUser);
 
     @Aggregation(pipeline = {
         "{ $match: { $or: [ {'sender.idPersonne': ?0, 'receiver.idPersonne': ?1},{'sender.idPersonne': ?1 , 'receiver.idPersonne': ?0 } ] } }",

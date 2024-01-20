@@ -59,11 +59,10 @@ public class MessageService {
     }
 
     public List<Message> getAllContact(int idUser){
-        List<Object> documents = messageRepository.getAllContact(idUser);
+        List<Integer> idContacts = messageRepository.getAllContact(idUser);
         List<Message> contacts = new ArrayList<>();
-        for (Object document:documents) {
-            Document doc = (Document) document;
-            Message last = getLastMessage(idUser,doc.getInteger("idPersonne"));
+        for (Integer idContact:idContacts) {
+            Message last = getLastMessage(idUser,idContact);
             contacts.add(last);
         }
         return contacts;
