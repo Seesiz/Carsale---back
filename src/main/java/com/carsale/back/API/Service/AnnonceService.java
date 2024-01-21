@@ -2,13 +2,19 @@ package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.StatutVoiture;
+import com.carsale.back.API.Model.Voiture;
 import com.carsale.back.API.Repository.AnnonceRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
+import com.carsale.back.API.Repository.StatutVoitureRepository;
 import com.carsale.back.API.Repository.VoitureRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +23,20 @@ public class AnnonceService {
     private final AnnonceRepository annonceRepository;
     private final PersonneRepository personneRepository;
     private final VoitureRepository voitureRepository;
-    private final TokkenService tokkenService;
 
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, TokkenService tokkenService) {
+    private  StatutVoitureService statut_serv;
+    private final TokkenService tokkenService;
+    private final StatutVoitureRepository statutVoitureRepository;
+
+    @Autowired
+    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, TokkenService tokkenService,
+                          StatutVoitureRepository statutVoitureRepository) {
         this.annonceRepository = annonceRepository;
         this.personneRepository = personneRepository;
         this.voitureRepository = voitureRepository;
         this.tokkenService = tokkenService;
+        this.statutVoitureRepository = statutVoitureRepository;
     }
 
     //Create
@@ -38,7 +50,12 @@ public class AnnonceService {
         tokkenService.hasTokken(annonce.getAnnonceur(),valeurTokken);
         annonce.getVoiture().isdataCompleted();
 
-        voitureRepository.save(annonce.getVoiture());
+        Voiture voutureSave = voitureRepository.save(annonce.getVoiture());
+
+        // Obtenez la date et l'heure actuelles en millisecondes
+        long millis = System.currentTimeMillis();
+        StatutVoiture statutVoiture = new StatutVoiture(voutureSave,new Date(millis) );
+        statutVoiture = statut_serv.ajoutStatutVoiture(statutVoiture);
         return annonceRepository.save(annonce);
     }
 
@@ -73,6 +90,10 @@ public class AnnonceService {
     public void valider(String id){
         Annonce annonce = byId(id);
         annonce.setEtat(10);
+        // Obtenez la date et l'heure actuelles en millisecondes
+        long millis = System.currentTimeMillis();
+        StatutVoiture statut = new StatutVoiture(annonce.getVoiture(),new Date(millis) );
+        statut = statut_serv.validerStatuVoiture(statut);
         update(annonce);
     }
 

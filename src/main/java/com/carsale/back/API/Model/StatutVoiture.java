@@ -1,11 +1,9 @@
 package com.carsale.back.API.Model;
 
-import com.carsale.back.API.Repository.StatutVoitureRepository;
 import jakarta.persistence.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class StatutVoiture {
@@ -18,7 +16,7 @@ public class StatutVoiture {
     @JoinColumn(name = "idVoiture", referencedColumnName = "idVoiture")
     private Voiture voiture;
 
-    @Column(name = "dateStatut" , columnDefinition = "date")
+    @Column(name = "dateStatut", columnDefinition = "date")
     private Date dateStatut;
 
     /*
@@ -68,6 +66,16 @@ public class StatutVoiture {
     }
 
     public StatutVoiture(){}
+
+    public StatutVoiture(Voiture voutureSave, java.sql.Date date){
+        setVoiture(voutureSave);
+        setDateStatut(date);
+    }
+
+    public StatutVoiture(Voiture v, String date) throws Exception{
+        setVoiture(v);
+        setDateStatut(date);
+    }
 
 
 }

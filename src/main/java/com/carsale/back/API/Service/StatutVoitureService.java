@@ -23,7 +23,7 @@ public class StatutVoitureService {
     * Maka ny statut ny voiture rehetra
     * */
     public List<StatutVoiture> getListStatutVoiture(){
-        return statutVoiture_rep.findLatestStatusByVehicle();
+        return statutVoiture_rep.findAll();
     }
 
     /*
@@ -58,29 +58,29 @@ public class StatutVoitureService {
 
     /*
     * Statut voiture :
-    * 0 => en atente de validation
-    * 1 => valider
-    * 2 => vendu
+    * 10 => en atente de validation
+    * 20 => valider
+    * 30 => vendu
     * Atao insert fona fa ny date no mitondra azy
     *  */
     public StatutVoiture ajoutStatutVoiture(StatutVoiture s){
         Voiture v= voiture_rep.findById(s.getVoiture().getIdVoiture()).get();
         s.setVoiture(v);
-        s.setStatut(0);
+        s.setStatut(10);
         return statutVoiture_rep.save(s);
     }
 
     public StatutVoiture validerStatuVoiture(StatutVoiture s){
         Voiture v= voiture_rep.findById(s.getVoiture().getIdVoiture()).get();
         s.setVoiture(v);
-        s.setStatut(1);
+        s.setStatut(20);
         return statutVoiture_rep.save(s);
     }
 
     public StatutVoiture vendre(StatutVoiture s){
         Voiture v= voiture_rep.findById(s.getVoiture().getIdVoiture()).get();
         s.setVoiture(v);
-        s.setStatut(2);
+        s.setStatut(30);
         return statutVoiture_rep.save(s);
     }
 }

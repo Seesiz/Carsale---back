@@ -29,6 +29,11 @@ public class VoitureController {
         return voiture_serv.retrieve();
     }
 
+    @GetMapping("/randy")
+    public List<Voiture> getVente(){
+        return voiture_serv.getAllVoiture();
+    }
+
     @GetMapping("/{idVoiture}")
     public Voiture getAllEnVente(@PathVariable int idVoiture){
         return voiture_serv.findVoiture(idVoiture);
