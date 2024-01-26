@@ -112,7 +112,19 @@ public class AnnonceService {
     @Transactional
     public void favoriser(String idAnnonce,int idUser){
         Annonce annonce = byId(idAnnonce);
+        for (int favoriseur:annonce.getFavoriseur()) {
+            if(favoriseur == idUser) return;
+        }
         annonce.getFavoriseur().add(idUser);
+        update(annonce);
+    }
+
+    @Transactional
+    public void defavoriser(String idAnnonce,int idUser){
+        Annonce annonce = byId(idAnnonce);
+        for (int i = 0; i < annonce.getFavoriseur().stream().count(); i++) {
+            if(annonce.getFavoriseur().get(i) == idUser) annonce.getFavoriseur().remove(i);
+        }
         update(annonce);
     }
 

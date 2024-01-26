@@ -1,11 +1,9 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Message;
-import com.carsale.back.API.Model.Personne;
 import com.carsale.back.API.Repository.MessageRepository;
 import com.carsale.back.API.Repository.PersonneRepository;
 import jakarta.transaction.Transactional;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +14,21 @@ import java.util.List;
 public class MessageService {
     private final MessageRepository messageRepository;
     private final PersonneRepository personneRepository;
+    private final TokkenService tokkenService;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository, PersonneRepository personneRepository) {
+    public MessageService(MessageRepository messageRepository, PersonneRepository personneRepository, TokkenService tokkenService) {
         this.messageRepository = messageRepository;
         this.personneRepository = personneRepository;
+        this.tokkenService = tokkenService;
     }
 
 //Create
     @Transactional
-    public Message create(Message message) throws Exception {
+    public Message create(Message message, String valeurTokken) throws Exception {
         message.setSender(personneRepository.findById(message.getSender().getIdPersonne()).get());
         message.setReceiver(personneRepository.findById(message.getReceiver().getIdPersonne()).get());
+        tokkenService.hasTokken(message.getSender(),valeurTokken);
         return messageRepository.save(message);
     }
 

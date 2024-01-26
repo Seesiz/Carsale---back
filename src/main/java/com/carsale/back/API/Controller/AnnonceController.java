@@ -73,9 +73,14 @@ public class AnnonceController {
         return annonceService.getFavorisFor(idUser);
     }
 
-    @PostMapping("/favoriser")
+    @PutMapping("/favoriser")
     public void favoriser(@PathParam("idAnnonce")String idAnnonce,@PathParam("idUser")int idUser){
         annonceService.favoriser(idAnnonce,idUser);
+    }
+
+    @PutMapping("/defavoriser")
+    public void defavoriser(@PathParam("idAnnonce")String idAnnonce,@PathParam("idUser")int idUser){
+        annonceService.defavoriser(idAnnonce,idUser);
     }
 
 }

@@ -37,7 +37,7 @@ public class TokkenService {
     public void hasTokken(Personne personne , String valeur) throws Exception {
         Tokken tokken = tokken_rep.findByPersonneAndValeurtokken(personne,valeur);
         if(tokken == null){
-            throw new Exception("Tokken inexistant.");
+            throw new Exception("Tokken invalide.");
         }
     }
 }

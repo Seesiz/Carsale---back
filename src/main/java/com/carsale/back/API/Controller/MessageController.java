@@ -1,5 +1,6 @@
 package com.carsale.back.API.Controller;
 
+import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Model.Message;
 import com.carsale.back.API.Service.MessageService;
 import jakarta.websocket.server.PathParam;
@@ -25,12 +26,17 @@ public class MessageController {
 
 
     @PostMapping
-    public void insert(@RequestBody Message message){
+    public HashMap<String,Object> insert(@RequestHeader String tokken, @RequestBody Message message){
+        HashMap<String,Object> response = new HashMap<>();
         try {
-            messageService.create(message);
+            messageService.create(message,tokken);
+            response.put("message","Message envoye avec success.");
+            response.put("statut",true);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            response.put("message",e.getMessage());
+            response.put("statut",false);
         }
+        return response;
     }
 
     @GetMapping
