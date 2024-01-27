@@ -19,4 +19,5 @@ public interface TokkenRepository extends JpaRepository<Tokken,Integer> {
     @Modifying
     @Query(value = "delete from tokken where date_time_fin < now()" , nativeQuery = true)
     public void checkTokken();
+
 }

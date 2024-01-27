@@ -1,6 +1,7 @@
 package com.carsale.back.API.Service;
 
 import com.carsale.back.API.Model.Personne;
+import com.carsale.back.API.Model.Statistique;
 import com.carsale.back.API.Model.StatutVoiture;
 import com.carsale.back.API.Model.Voiture;
 import com.carsale.back.API.Repository.StatutVoitureRepository;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -30,13 +34,8 @@ public class StatutVoitureService {
     * Maka ny statut voiture iray
     * */
     public StatutVoiture getStatut(int idvoiture){
-        List<StatutVoiture> list = statutVoiture_rep.findLatestStatusByVehicle();
-        StatutVoiture statutVoiture = null;
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getVoiture().getIdVoiture() == idvoiture){
-                statutVoiture = list.get(i);
-            }
-        }
+        Voiture voiture = voiture_rep.findById(idvoiture).get();
+        StatutVoiture statutVoiture = statutVoiture_rep.findFirstByVoitureOrderByDateStatutDesc(voiture);
         return statutVoiture;
     }
 
@@ -83,4 +82,7 @@ public class StatutVoitureService {
         s.setStatut(30);
         return statutVoiture_rep.save(s);
     }
+
+
+
 }

@@ -11,7 +11,7 @@ public class Model {
     @Column(name = "idModel")
     private int idModel;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idMarque", referencedColumnName = "idMarque")
     private Marque marque;
 
