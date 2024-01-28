@@ -98,6 +98,10 @@ public class AnnonceService {
             if(etat == 20){
                 Caisse caisse = new Caisse(annonce);
                 caisseRepository.save(caisse);
+                // Obtenez la date et l'heure actuelles en millisecondes
+                long millis = System.currentTimeMillis();
+                StatutVoiture statutVoiture = new StatutVoiture(annonce.getVoiture(),new Date(millis));
+                statutVoiture = statut_serv.vendre(statutVoiture);
             }
             annonce.setEtat(etat);
             update(annonce);
