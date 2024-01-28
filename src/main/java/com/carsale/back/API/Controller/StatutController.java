@@ -41,14 +41,14 @@ public class StatutController {
     }
 
     @GetMapping("/statistiqueanonce/{annee}")
-    public ResponseEntity<Object> listVente(@PathVariable("anne") int annee){
+    public ResponseEntity<Object> listVente(@PathVariable("annee") int annee){
         HashMap<String, Object> reponse = new HashMap<>();
         reponse.put("data", statutVoitureRepository.findStatutByYearAndStatus(annee,20));
         return new ResponseEntity<>(reponse, HttpStatus.OK);
     }
 
-    @GetMapping("/statistiquevente")
-    public ResponseEntity<Object> listvente(@PathVariable("anne") int annee){
+    @GetMapping("/statistiquevente/{annee}")
+    public ResponseEntity<Object> listvente(@PathVariable("annee") int annee){
         HashMap<String, Object> reponse = new HashMap<>();
         reponse.put("data", statutVoitureRepository.findStatutByYearAndStatus(annee,30));
         return new ResponseEntity<>(reponse, HttpStatus.OK);
