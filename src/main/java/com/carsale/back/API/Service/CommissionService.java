@@ -15,7 +15,8 @@ public class CommissionService {
     }
 
     public Commission get(){
-        return commissionRepository.findById(1).get();
+        if(commissionRepository.findById(1).isPresent())return commissionRepository.findById(1).get();
+        return new Commission(1,0);
     }
 
     @Transactional
