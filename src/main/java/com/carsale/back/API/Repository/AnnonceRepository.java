@@ -8,6 +8,10 @@ import java.util.List;
 @Repository
 public interface AnnonceRepository extends MongoRepository<Annonce,String> {
     public List<Annonce> findByEtat(int etat);
+
     @Query("{favoriseur:?0}")
     public List<Annonce> getFavorisFor(int iduser);
+
+    @Query("{'annonceur.idPersonne':?0}")
+    public List<Annonce> getMyAnnonce(int idUser);
 }

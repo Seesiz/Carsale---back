@@ -112,6 +112,10 @@ public class AnnonceService {
         return annonceRepository.findByEtat(10);
     }
 
+    public List<Annonce> myAnnonce(int idUser){
+        return annonceRepository.getMyAnnonce(idUser);
+    }
+
     public List<Annonce> getFavorisFor(int idUser){
         return annonceRepository.getFavorisFor(idUser);
     }

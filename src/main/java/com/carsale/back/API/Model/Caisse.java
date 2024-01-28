@@ -20,7 +20,7 @@ public class Caisse {
         long millis = System.currentTimeMillis();
         setDate_caisse(new Date(millis));
         setId_annonce(annonce.getId());
-        setValeur((annonce.getVoiture().getPrix() * 20) / 100);
+        setValeur((annonce.getVoiture().getPrix() * 5) / 100);
     }
 
     public int getId_caisse() {

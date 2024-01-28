@@ -68,6 +68,11 @@ public class AnnonceController {
         return annonceService.getValide();
     }
 
+    @GetMapping("/myannonce")
+    public List<Annonce> myAnnonce(@PathParam("idUser") int idUser){
+        return annonceService.myAnnonce(idUser);
+    }
+
     @GetMapping("/favoris")
     public List<Annonce> favoris(@PathParam("idUser") int idUser){
         return annonceService.getFavorisFor(idUser);
