@@ -1,20 +1,12 @@
 package com.carsale.back.API.Service;
 
-import com.carsale.back.API.Model.Annonce;
-import com.carsale.back.API.Model.Personne;
-import com.carsale.back.API.Model.StatutVoiture;
-import com.carsale.back.API.Model.Voiture;
-import com.carsale.back.API.Repository.AnnonceRepository;
-import com.carsale.back.API.Repository.PersonneRepository;
-import com.carsale.back.API.Repository.StatutVoitureRepository;
-import com.carsale.back.API.Repository.VoitureRepository;
+import com.carsale.back.API.Model.*;
+import com.carsale.back.API.Repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +20,17 @@ public class AnnonceService {
     private  StatutVoitureService statut_serv;
     private final TokkenService tokkenService;
     private final StatutVoitureRepository statutVoitureRepository;
+    private final CaisseRepository caisseRepository;
 
     @Autowired
     public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, TokkenService tokkenService,
-                          StatutVoitureRepository statutVoitureRepository) {
+                          StatutVoitureRepository statutVoitureRepository, CaisseRepository caisseRepository) {
         this.annonceRepository = annonceRepository;
         this.personneRepository = personneRepository;
         this.voitureRepository = voitureRepository;
         this.tokkenService = tokkenService;
         this.statutVoitureRepository = statutVoitureRepository;
+        this.caisseRepository = caisseRepository;
     }
 
     //Create
@@ -95,6 +89,19 @@ public class AnnonceService {
         StatutVoiture statut = new StatutVoiture(annonce.getVoiture(),new Date(millis) );
         statut = statut_serv.validerStatuVoiture(statut);
         update(annonce);
+    }
+
+    @Transactional
+    public void changerEtat(String id,int etat){
+        Annonce annonce = byId(id);
+        if(etat != 10 && etat != 0) {
+            if(etat == 20){
+                Caisse caisse = new Caisse(annonce);
+                caisseRepository.save(caisse);
+            }
+            annonce.setEtat(etat);
+            update(annonce);
+        }
     }
 
     public List<Annonce> getInvalide(){

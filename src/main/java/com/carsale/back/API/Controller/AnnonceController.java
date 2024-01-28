@@ -83,5 +83,10 @@ public class AnnonceController {
         annonceService.defavoriser(idAnnonce,idUser);
     }
 
+    @PutMapping("/etat")
+    public void etat(@PathParam("idAnnonce") String idAnnonce,@PathParam("etat") int etat){
+        annonceService.changerEtat(idAnnonce,etat);
+    }
+
 }
 
