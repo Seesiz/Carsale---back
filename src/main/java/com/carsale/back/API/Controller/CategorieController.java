@@ -33,14 +33,9 @@ public class CategorieController {
     }
 
     @PutMapping()
-    public ResponseEntity<Object> modifierCategorie(@RequestBody Categorie c,@RequestHeader("tokken") String tokken){
+    public ResponseEntity<Object> modifierCategorie(@RequestBody Categorie c){
         HashMap<String,Object> reponse = new HashMap<>();
         try {
-            Tokken t = tokken_serv.checTokken(tokken);
-            if(tokken == null){
-                reponse.put("message","Tokken invalide");
-                return new ResponseEntity<>(reponse,HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-            }
             reponse.put("data",categorie_serv.modifierCategorie(c.getIdCategorie(),c));
             return new ResponseEntity<>(reponse,HttpStatus.OK);
         }catch (Exception e){
@@ -50,14 +45,9 @@ public class CategorieController {
     }
 
     @DeleteMapping("/{idcategorie}")
-    public ResponseEntity<Object> supprimerCategorie(@PathVariable int idcategorie,@RequestHeader("tokken") String tokken){
+    public ResponseEntity<Object> supprimerCategorie(@PathVariable int idcategorie){
         HashMap<String,Object> reponse = new HashMap<>();
         try {
-            Tokken t = tokken_serv.checTokken(tokken);
-            if(tokken == null){
-                reponse.put("message","Tokken invalide");
-                return new ResponseEntity<>(reponse,HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-            }
             reponse.put("data",categorie_serv.supprimerCategorie(idcategorie));
             return new ResponseEntity<>(reponse,HttpStatus.OK);
         }catch (Exception e){
