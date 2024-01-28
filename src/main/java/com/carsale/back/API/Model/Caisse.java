@@ -1,5 +1,6 @@
 package com.carsale.back.API.Model;
 
+import com.carsale.back.API.Repository.CommissionRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,11 +17,23 @@ public class Caisse {
     String id_annonce;
     double valeur;
 
-    public Caisse(Annonce annonce) {
+    public Caisse() {
+    }
+
+    public Caisse(Annonce annonce, CommissionRepository commissionRepository) throws Exception {
         long millis = System.currentTimeMillis();
         setDate_caisse(new Date(millis));
         setId_annonce(annonce.getId());
-        setValeur((annonce.getVoiture().getPrix() * 5) / 100);
+        setValeur(annonce.getVoiture().getPrix(),commissionRepository);
+    }
+
+    private void setValeur(double prix, CommissionRepository commissionRepository) throws Exception {
+        if(commissionRepository.findById(1).isPresent()) {
+            double commission = commissionRepository.findById(1).get().getPourcentage();
+            setValeur((prix * commission) / 100);
+        }else{
+            throw new Exception("Le site n'a pas de commission.");
+        }
     }
 
     public int getId_caisse() {

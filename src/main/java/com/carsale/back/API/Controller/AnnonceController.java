@@ -89,8 +89,17 @@ public class AnnonceController {
     }
 
     @PutMapping("/etat")
-    public void etat(@PathParam("idAnnonce") String idAnnonce,@PathParam("etat") int etat){
-        annonceService.changerEtat(idAnnonce,etat);
+    public HashMap<String, Object> etat(@PathParam("idAnnonce") String idAnnonce, @PathParam("etat") int etat){
+        HashMap<String,Object> response = new HashMap<>();
+        try {
+            annonceService.changerEtat(idAnnonce,etat);
+            response.put("message","Changement etat success.");
+            response.put("statut",true);
+        } catch (Exception e) {
+            response.put("message",e.getMessage());
+            response.put("statut",false);
+        }
+        return response;
     }
 
 }

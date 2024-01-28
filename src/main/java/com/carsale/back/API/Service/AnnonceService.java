@@ -21,16 +21,19 @@ public class AnnonceService {
     private final TokkenService tokkenService;
     private final StatutVoitureRepository statutVoitureRepository;
     private final CaisseRepository caisseRepository;
+    private final CommissionRepository commissionRepository;
 
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, TokkenService tokkenService,
-                          StatutVoitureRepository statutVoitureRepository, CaisseRepository caisseRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, PersonneRepository personneRepository, VoitureRepository voitureRepository, StatutVoitureService statutServ, TokkenService tokkenService,
+                          StatutVoitureRepository statutVoitureRepository, CaisseRepository caisseRepository, CommissionRepository commissionRepository) {
         this.annonceRepository = annonceRepository;
         this.personneRepository = personneRepository;
         this.voitureRepository = voitureRepository;
+        statut_serv = statutServ;
         this.tokkenService = tokkenService;
         this.statutVoitureRepository = statutVoitureRepository;
         this.caisseRepository = caisseRepository;
+        this.commissionRepository = commissionRepository;
     }
 
     //Create
@@ -92,11 +95,11 @@ public class AnnonceService {
     }
 
     @Transactional
-    public void changerEtat(String id,int etat){
+    public void changerEtat(String id,int etat) throws Exception {
         Annonce annonce = byId(id);
         if(etat != 10 && etat != 0) {
             if(etat == 20){
-                Caisse caisse = new Caisse(annonce);
+                Caisse caisse = new Caisse(annonce,commissionRepository);
                 caisseRepository.save(caisse);
                 // Obtenez la date et l'heure actuelles en millisecondes
                 long millis = System.currentTimeMillis();
