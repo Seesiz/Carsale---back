@@ -43,4 +43,5 @@ public class NotificationMessageRequest {
         this.topic = topic;
         this.token = token;
     }
+    public NotificationMessageRequest() { }
 }

@@ -2,7 +2,11 @@ package com.carsale.back.API.Controller;
 
 import com.carsale.back.API.Model.Annonce;
 import com.carsale.back.API.Model.Message;
+import com.carsale.back.API.Model.NotificationMessageRequest;
+import com.carsale.back.API.Model.TokkenMobile;
 import com.carsale.back.API.Service.MessageService;
+import com.carsale.back.API.Service.PushNotificationService;
+import com.carsale.back.API.Service.TokkenMobileService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +22,14 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
+    private final TokkenMobileService tokkenMobileService;
+    private final PushNotificationService pushNotificationService;
 
     @Autowired
-    public MessageController(MessageService messageService) {
+    public MessageController(MessageService messageService,TokkenMobileService tokkenMobileService,PushNotificationService pushNotificationService) {
+        this.tokkenMobileService= tokkenMobileService;
         this.messageService = messageService;
+        this.pushNotificationService = pushNotificationService;
     }
 
 
@@ -32,6 +40,15 @@ public class MessageController {
             messageService.create(message,tokken);
             response.put("message","Message envoye avec success.");
             response.put("statut",true);
+            TokkenMobile tokkenMobile = tokkenMobileService.checkTokkenMobile(message.getReceiver());
+            if (tokkenMobile!=null){
+                NotificationMessageRequest request = new NotificationMessageRequest();
+                request.setMessage(message.getSender().getPrenom() + " vous a envoyé un message");
+                request.setTitle("Look at me !🥹");
+                request.setToken(tokkenMobile.getValeurtokken());
+                request.setTopic(message.getSender().getPrenom() + " vous a envoyé un message");
+                pushNotificationService.sendPushNotificationToToken(request);
+            }
         } catch (Exception e) {
             response.put("message",e.getMessage());
             response.put("statut",false);
